@@ -6,11 +6,12 @@
 ```
 app/page.tsx → Diviser en composants logiques:
 ├── components/views/
-│   ├── login-view.tsx (150 lignes)
-│   ├── therapist-dashboard.tsx (200 lignes)  
-│   ├── patient-detail.tsx (150 lignes)
-│   ├── patient-goals.tsx (120 lignes)
-│   └── create-goal.tsx (100 lignes)
+│   ├── login-view.tsx (150 lignes) ⚠️ "use client"
+│   ├── therapist-dashboard.tsx (200 lignes) ⚠️ "use client"
+│   ├── patient-detail.tsx (150 lignes) ⚠️ "use client"
+│   ├── patient-goals.tsx (120 lignes) ⚠️ "use client"
+│   ├── create-goal.tsx (100 lignes) ⚠️ "use client"
+│   └── index.ts (barrel export pour optimisation)
 ```
 **Pourquoi:** Maintenance plus facile, hot reload plus rapide  
 **Effort:** 2h  
@@ -71,43 +72,39 @@ npm install framer-motion
 
 ---
 
-### ✅ Ajouter un thème cohérent
-```css
-/* globals.css - Variables CSS pour cohérence */
-:root {
-  --primary: #3b82f6;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  
-  /* Espacements standards */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  
-  /* Border radius standards */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+### ✅ Configurer le thème avec Tailwind (Bonnes pratiques 2024)
+```js
+// tailwind.config.js - Utiliser le système natif de Tailwind
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#3b82f6',
+          dark: '#60a5fa'
+        },
+        success: {
+          DEFAULT: '#10b981',
+          dark: '#34d399'
+        },
+        warning: {
+          DEFAULT: '#f59e0b',
+          dark: '#fbbf24'
+        },
+        danger: {
+          DEFAULT: '#ef4444',
+          dark: '#f87171'
+        }
+      }
+    }
+  }
 }
 
-/* Dark mode */
-[data-theme="dark"] {
-  --primary: #60a5fa;
-  --success: #34d399;
-  --warning: #fbbf24;
-  --danger: #f87171;
-}
+// Utilisation dans les composants :
+// className="bg-primary text-white" au lieu de style={{ backgroundColor: 'var(--primary)' }}
 ```
-**Pourquoi:** Look professionnel uniforme  
-**Effort:** 1h  
+**Pourquoi:** Suit les conventions Tailwind CSS déjà utilisées dans le projet  
+**Effort:** 30 min  
 **Status:** [ ] À faire
 
 ---
@@ -115,9 +112,9 @@ npm install framer-motion
 ## 📋 Checklist Priorité 1 avec Points de Test
 
 ### 🔧 ÉTAPE 1 : Extraction des données mock
-- [ ] Créer `lib/mock-data.ts` avec toutes les données mock
-- [ ] Déplacer `mockPatients`, `mockGoals`, `mockPatientGoals` depuis `app/page.tsx`
-- [ ] Importer les données dans `app/page.tsx`
+- [x] Créer `lib/mock-data.ts` avec toutes les données mock
+- [x] Déplacer `mockPatients`, `mockGoals`, `mockPatientGoals` depuis `app/page.tsx`
+- [x] Importer les données dans `app/page.tsx`
 
 ### 🧪 POINT DE TEST #1
 ```bash
@@ -133,13 +130,14 @@ npm run dev
 
 ---
 
-### 🔧 ÉTAPE 2 : Extraction des vues principales
+### 🔧 ÉTAPE 2 : Extraction des vues principales (Bonnes pratiques appliquées)
 - [ ] Créer le dossier `components/views/`
-- [ ] Extraire `LoginView` dans son propre fichier
-- [ ] Extraire `TherapistDashboard` dans son propre fichier
-- [ ] Extraire `PatientDetail` dans son propre fichier
-- [ ] Extraire `PatientGoals` dans son propre fichier
-- [ ] Extraire `CreateGoal` dans son propre fichier
+- [ ] Extraire `LoginView` dans son propre fichier avec "use client"
+- [ ] Extraire `TherapistDashboard` dans son propre fichier avec "use client"
+- [ ] Extraire `PatientDetail` dans son propre fichier avec "use client"
+- [ ] Extraire `PatientGoals` dans son propre fichier avec "use client"
+- [ ] Extraire `CreateGoal` dans son propre fichier avec "use client"
+- [ ] Créer `components/views/index.ts` pour barrel exports
 
 ### 🧪 POINT DE TEST #2
 ```bash
@@ -175,10 +173,10 @@ npm run dev
 
 ---
 
-### 🔧 ÉTAPE 4 : Thème et cohérence visuelle
-- [ ] Mettre à jour `globals.css` avec les variables CSS
-- [ ] Appliquer les variables dans au moins 3 composants
-- [ ] Vérifier la cohérence des couleurs
+### 🔧 ÉTAPE 4 : Thème avec Tailwind Config (Bonnes pratiques)
+- [ ] Mettre à jour `tailwind.config.js` avec les couleurs du thème
+- [ ] Remplacer les couleurs hardcodées par les classes Tailwind
+- [ ] Vérifier la cohérence avec le système de design shadcn/ui
 
 ### 🧪 POINT DE TEST #4
 ```bash
@@ -196,7 +194,8 @@ npm run dev
 
 ### 🔧 ÉTAPE 5 : Animations et polish
 - [ ] Installer framer-motion (`npm install framer-motion`)
-- [ ] Ajouter des animations de base aux transitions de vues
+- [ ] Ajouter "use client" aux composants avec animations
+- [ ] Créer un composant wrapper pour les transitions de vues
 - [ ] Animer au moins l'entrée/sortie de chaque vue
 - [ ] Ajouter une animation sur les boutons hover
 
@@ -219,21 +218,23 @@ npm run dev
 ## 🎯 Résultat Attendu
 
 Après cette priorité :
-- **Code organisé** : Chaque vue dans son fichier (max 200 lignes)
+- **Code organisé** : Chaque vue dans son fichier (max 200 lignes) avec "use client"
 - **Navigation claire** : Un seul point de contrôle pour les vues
 - **Données centralisées** : Mock data dans un seul endroit
-- **UX améliorée** : Transitions fluides entre les vues
-- **Design cohérent** : Variables CSS partagées
+- **UX améliorée** : Transitions fluides entre les vues avec framer-motion
+- **Design cohérent** : Thème Tailwind CSS unifié
+- **Optimisation** : Barrel exports pour imports simplifiés
 
 ---
 
-## 💡 Tips d'Implémentation
+## 💡 Tips d'Implémentation (Mis à jour avec bonnes pratiques 2024)
 
-1. **Commencer par les extractions** avant d'ajouter des features
-2. **Tester après chaque extraction** pour s'assurer que rien ne casse
-3. **Utiliser les props pour passer `onNavigate`** entre composants
-4. **Garder l'état dans le composant parent** pour l'instant
-5. **Ne pas sur-optimiser** - on fait une maquette !
+1. **Toujours ajouter "use client"** en haut des composants avec state/interactivité
+2. **Utiliser Tailwind classes** au lieu de variables CSS custom
+3. **Barrel exports** dans index.ts pour simplifier les imports
+4. **Tester après chaque extraction** pour s'assurer que rien ne casse
+5. **Garder l'état dans le composant parent** pour l'instant
+6. **Framer-motion** : uniquement dans les composants "use client"
 
 ---
 
