@@ -39,16 +39,16 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
                 onClick={() => onNavigate("therapist-dashboard")}
                 className="mr-4"
               >
-                ← Back
+                ← Retour
               </Button>
-              <h1 className="text-xl font-semibold text-gray-800">{patient.name} - Details</h1>
+              <h1 className="text-xl font-semibold text-gray-800">{patient.name} - Détails</h1>
             </div>
             <Button 
               onClick={() => onNavigate("create-goal")}
               className="bg-blue-600 hover:bg-blue-700"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add Goal
+              Ajouter Objectif
             </Button>
           </div>
         </div>
@@ -61,14 +61,14 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl">{patient.name}</CardTitle>
-                <CardDescription>Age {patient.age} • Patient ID: {patient.id}</CardDescription>
+                <CardDescription>Âge {patient.age} • ID Patient: {patient.id}</CardDescription>
               </div>
               <div className="text-right">
                 <div className="flex items-center justify-end mb-2">
                   <Award className="w-6 h-6 text-yellow-500 mr-2" />
                   <span className="text-2xl font-bold text-gray-800">{patient.points}</span>
                 </div>
-                <p className="text-sm text-gray-600">Total Points</p>
+                <p className="text-sm text-gray-600">Points Totaux</p>
               </div>
             </div>
           </CardHeader>
@@ -76,17 +76,17 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600">{patient.totalGoals}</div>
-                <div className="text-sm text-gray-600">Active Goals</div>
+                <div className="text-sm text-gray-600">Objectifs Actifs</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-green-600">{patient.completedToday}</div>
-                <div className="text-sm text-gray-600">Completed Today</div>
+                <div className="text-sm text-gray-600">Complétés Aujourd'hui</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-600">
                   {Math.round((patient.completedToday / patient.totalGoals) * 100)}%
                 </div>
-                <div className="text-sm text-gray-600">Completion Rate</div>
+                <div className="text-sm text-gray-600">Taux de Complétion</div>
               </div>
             </div>
           </CardContent>
@@ -97,7 +97,7 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
           <CardHeader>
             <CardTitle className="flex items-center">
               <Target className="w-5 h-5 mr-2" />
-              Current Goals
+              Objectifs Actuels
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -147,12 +147,12 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
           <CardHeader>
             <CardTitle className="flex items-center">
               <Calendar className="w-5 h-5 mr-2" />
-              Weekly Progress
+              Progrès Hebdomadaire
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
+              {['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'].map((day, index) => (
                 <div key={day} className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-700 w-20">{day}</span>
                   <div className="flex-1 mx-4">

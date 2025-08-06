@@ -32,60 +32,60 @@ export function LoginView({ onNavigate }: LoginViewProps) {
               <Target className="w-8 h-8 text-blue-600" />
             </motion.div>
             <CardTitle className="text-2xl font-bold text-gray-800">OT Goal Tracker</CardTitle>
-            <CardDescription>Track therapeutic goals and celebrate progress</CardDescription>
+            <CardDescription>Suivez les objectifs thérapeutiques et célébrez les progrès</CardDescription>
           </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
+              <TabsTrigger value="login">Connexion</TabsTrigger>
+              <TabsTrigger value="register">Inscription</TabsTrigger>
             </TabsList>
             
             <TabsContent value="login" className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="Enter your email" />
+                <Input id="email" type="email" placeholder="Entrez votre email" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" placeholder="Enter your password" />
+                <Label htmlFor="password">Mot de passe</Label>
+                <Input id="password" type="password" placeholder="Entrez votre mot de passe" />
               </div>
               <div className="space-y-2">
                 <Button 
                   className="w-full bg-blue-600 hover:bg-blue-700" 
                   onClick={() => onNavigate("therapist-dashboard", "therapist")}
                 >
-                  Login as Therapist
+                  Connexion Ergothérapeute
                 </Button>
                 <Button 
                   variant="outline" 
                   className="w-full"
                   onClick={() => onNavigate("patient-goals", "patient")}
                 >
-                  Login as Patient
+                  Connexion Patient
                 </Button>
               </div>
             </TabsContent>
             
             <TabsContent value="register" className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input id="name" placeholder="Enter your full name" />
+                <Label htmlFor="name">Nom complet</Label>
+                <Input id="name" placeholder="Entrez votre nom complet" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="reg-email">Email</Label>
-                <Input id="reg-email" type="email" placeholder="Enter your email" />
+                <Input id="reg-email" type="email" placeholder="Entrez votre email" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="reg-password">Password</Label>
-                <Input id="reg-password" type="password" placeholder="Create a password" />
+                <Label htmlFor="reg-password">Mot de passe</Label>
+                <Input id="reg-password" type="password" placeholder="Créez un mot de passe" />
               </div>
               <div className="space-y-2">
-                <Label>Account Type</Label>
+                <Label>Type de compte</Label>
                 <div className="grid grid-cols-2 gap-2">
                   <Button variant="outline" className="h-auto p-4 flex flex-col">
                     <User className="w-6 h-6 mb-2" />
-                    <span className="text-sm">Therapist</span>
+                    <span className="text-sm">Ergothérapeute</span>
                   </Button>
                   <Button variant="outline" className="h-auto p-4 flex flex-col">
                     <Target className="w-6 h-6 mb-2" />
@@ -94,7 +94,7 @@ export function LoginView({ onNavigate }: LoginViewProps) {
                 </div>
               </div>
               <Button className="w-full bg-green-600 hover:bg-green-700">
-                Create Account
+                Créer un compte
               </Button>
             </TabsContent>
           </Tabs>

@@ -71,7 +71,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                New Goal
+                Nouvel Objectif
               </Button>
               <Button variant="ghost" size="sm" aria-label="Paramètres">
                 <Settings className="w-4 h-4" />
@@ -84,8 +84,8 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Patient Dashboard</h2>
-          <p className="text-gray-600">Monitor progress and manage goals for your patients</p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Tableau de bord des patients</h2>
+          <p className="text-gray-600">Suivez les progrès et gérez les objectifs de vos patients</p>
         </div>
 
         {/* Stats Cards */}
@@ -125,7 +125,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <div className="flex items-center">
                   <Target className="w-8 h-8 text-green-600" />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Active Goals</p>
+                    <p className="text-sm font-medium text-gray-600">Objectifs Actifs</p>
                     <motion.p 
                       className="text-2xl font-bold text-gray-800"
                       initial={{ scale: 0 }}
@@ -150,7 +150,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <div className="flex items-center">
                   <Award className="w-8 h-8 text-yellow-600" />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Avg Completion</p>
+                    <p className="text-sm font-medium text-gray-600">Complétion Moyenne</p>
                     <motion.p 
                       className="text-2xl font-bold text-gray-800"
                       initial={{ scale: 0 }}
@@ -171,7 +171,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Input 
-                placeholder="Search patients by name..." 
+                placeholder="Rechercher des patients par nom..." 
                 className="w-full"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -183,20 +183,20 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 value={ageFilter}
                 onChange={(e) => setAgeFilter(e.target.value)}
               >
-                <option value="">All Ages</option>
-                <option value="5-10">5-10 years</option>
-                <option value="11-15">11-15 years</option>
-                <option value="16-20">16-20 years</option>
+                <option value="">Tous les âges</option>
+                <option value="5-10">5-10 ans</option>
+                <option value="11-15">11-15 ans</option>
+                <option value="16-20">16-20 ans</option>
               </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 value={progressFilter}
                 onChange={(e) => setProgressFilter(e.target.value)}
               >
-                <option value="">All Progress</option>
-                <option value="high">High (80%+)</option>
-                <option value="medium">Medium (50-79%)</option>
-                <option value="low">Low (&lt;50%)</option>
+                <option value="">Tous les progrès</option>
+                <option value="high">Élevé (80%+)</option>
+                <option value="medium">Moyen (50-79%)</option>
+                <option value="low">Faible (&lt;50%)</option>
               </select>
             </div>
           </div>
@@ -213,8 +213,8 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <thead className="bg-gray-50 border-b">
                   <tr>
                     <th className="text-left p-4 font-medium text-gray-600">Patient</th>
-                    <th className="text-left p-4 font-medium text-gray-600">Age</th>
-                    <th className="text-left p-4 font-medium text-gray-600">Today's Progress</th>
+                    <th className="text-left p-4 font-medium text-gray-600">Âge</th>
+                    <th className="text-left p-4 font-medium text-gray-600">Progrès du jour</th>
                     <th className="text-left p-4 font-medium text-gray-600">Points</th>
                     <th className="text-left p-4 font-medium text-gray-600">Actions</th>
                   </tr>
@@ -259,14 +259,14 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                             size="sm"
                             onClick={() => onNavigate("patient-detail", patient.id)}
                           >
-                            View
+                            Voir
                           </Button>
                           <Button 
                             size="sm" 
                             className="bg-green-600 hover:bg-green-700"
                             onClick={() => onNavigate("create-goal")}
                           >
-                            Add Goal
+                            Ajouter Objectif
                           </Button>
                         </div>
                       </td>

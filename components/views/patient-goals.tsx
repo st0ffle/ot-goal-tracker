@@ -34,8 +34,8 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
                 <Target className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-lg font-semibold text-gray-800">My Goals</h1>
-                <p className="text-sm text-gray-600">Today's Tasks</p>
+                <h1 className="text-lg font-semibold text-gray-800">Mes Objectifs</h1>
+                <p className="text-sm text-gray-600">Tâches du jour</p>
               </div>
             </div>
             <div className="text-right">
@@ -43,7 +43,7 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
                 <Award className="w-5 h-5 text-yellow-500 mr-1" />
                 <span className="text-lg font-bold text-gray-800">245</span>
               </div>
-              <p className="text-xs text-gray-600">Total Points</p>
+              <p className="text-xs text-gray-600">Points Totaux</p>
             </div>
           </div>
         </div>
@@ -54,13 +54,13 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
         <Card className="mb-6">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-gray-600">Today's Progress</span>
-              <span className="text-sm font-bold text-gray-800">{completedCount}/{totalCount} Complete</span>
+              <span className="text-sm font-medium text-gray-600">Progrès du jour</span>
+              <span className="text-sm font-bold text-gray-800">{completedCount}/{totalCount} Complétés</span>
             </div>
             <Progress value={progressPercentage} className="h-3 mb-3" />
             <div className="flex justify-between text-xs text-gray-600">
-              <span>Keep going! 💪</span>
-              <span>+{goals.filter(g => !g.completed).reduce((sum, g) => sum + g.points, 0)} points possible</span>
+              <span>Continue comme ça ! 💪</span>
+              <span>+{goals.filter(g => !g.completed).reduce((sum, g) => sum + g.points, 0)} points possibles</span>
             </div>
           </CardContent>
         </Card>
@@ -97,7 +97,7 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
                       </div>
                       {goal.completed && (
                         <Badge className="bg-green-100 text-green-800 text-xs">
-                          Completed! 🎉
+                          Complété ! 🎉
                         </Badge>
                       )}
                     </div>
@@ -116,14 +116,14 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
             onClick={() => onNavigate("progress-history")}
           >
             <Calendar className="w-4 h-4 mr-2" />
-            View Progress History
+            Voir l'historique des progrès
           </Button>
           <Button 
             variant="ghost" 
             className="w-full text-gray-600"
             onClick={() => onNavigate("login")}
           >
-            Logout
+            Déconnexion
           </Button>
         </div>
       </div>

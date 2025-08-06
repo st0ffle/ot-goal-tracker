@@ -13,18 +13,18 @@ export const mockPatients = [
 ]
 
 export const mockGoals = [
-  { id: "1", text: "Practice buttoning shirt independently", completed: true, points: 10 },
-  { id: "2", text: "Use fork and knife for entire meal", completed: true, points: 15 },
-  { id: "3", text: "Complete 10 minutes of handwriting practice", completed: true, points: 10 },
-  { id: "4", text: "Organize backpack for school", completed: false, points: 10 }
+  { id: "1", text: "S'exercer à boutonner sa chemise de façon autonome", completed: true, points: 10 },
+  { id: "2", text: "Utiliser fourchette et couteau pendant tout le repas", completed: true, points: 15 },
+  { id: "3", text: "Compléter 10 minutes d'exercices d'écriture", completed: true, points: 10 },
+  { id: "4", text: "Organiser son sac à dos pour l'école", completed: false, points: 10 }
 ]
 
 export const mockPatientGoals = [
-  { id: "1", text: "Practice tying shoelaces", completed: true, points: 15 },
-  { id: "2", text: "Complete morning routine checklist", completed: false, points: 10 },
-  { id: "3", text: "Use both hands for cutting activity", completed: false, points: 10 }
+  { id: "1", text: "S'exercer à lacer ses chaussures", completed: true, points: 15 },
+  { id: "2", text: "Compléter la liste de routine du matin", completed: false, points: 10 },
+  { id: "3", text: "Utiliser les deux mains pour l'activité de découpage", completed: false, points: 10 }
 ]
 
 export const mockTherapists = [
-  { id: "1", name: "Dr. Sarah Martinez", specialty: "Pediatric OT" }
+  { id: "1", name: "Dr. Sarah Martinez", specialty: "Ergothérapie Pédiatrique" }
 ]
