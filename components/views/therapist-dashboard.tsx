@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Plus, Users, Target, Award, User, Settings } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface Patient {
   id: string
@@ -89,43 +90,80 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Users className="w-8 h-8 text-blue-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Patients</p>
-                  <p className="text-2xl font-bold text-gray-800">{patients.length}</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center">
+                  <Users className="w-8 h-8 text-blue-600" />
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Total Patients</p>
+                    <motion.p 
+                      className="text-2xl font-bold text-gray-800"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.3, type: "spring" }}
+                    >
+                      {patients.length}
+                    </motion.p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
           
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Target className="w-8 h-8 text-green-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active Goals</p>
-                  <p className="text-2xl font-bold text-gray-800">
-                    {patients.reduce((sum, p) => sum + p.totalGoals, 0)}
-                  </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center">
+                  <Target className="w-8 h-8 text-green-600" />
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Active Goals</p>
+                    <motion.p 
+                      className="text-2xl font-bold text-gray-800"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.4, type: "spring" }}
+                    >
+                      {patients.reduce((sum, p) => sum + p.totalGoals, 0)}
+                    </motion.p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
           
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <Award className="w-8 h-8 text-yellow-600" />
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Avg Completion</p>
-                  <p className="text-2xl font-bold text-gray-800">78%</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center">
+                  <Award className="w-8 h-8 text-yellow-600" />
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Avg Completion</p>
+                    <motion.p 
+                      className="text-2xl font-bold text-gray-800"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.5, type: "spring" }}
+                    >
+                      78%
+                    </motion.p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
         {/* Search and Filter */}

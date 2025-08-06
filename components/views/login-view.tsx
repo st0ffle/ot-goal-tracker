@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Target, User } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface LoginViewProps {
   onNavigate: (view: string, userType?: "therapist" | "patient") => void
@@ -14,14 +15,25 @@ interface LoginViewProps {
 export function LoginView({ onNavigate }: LoginViewProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-            <Target className="w-8 h-8 text-blue-600" />
-          </div>
-          <CardTitle className="text-2xl font-bold text-gray-800">OT Goal Tracker</CardTitle>
-          <CardDescription>Track therapeutic goals and celebrate progress</CardDescription>
-        </CardHeader>
+      <motion.div
+        className="w-full max-w-md"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Card className="w-full">
+          <CardHeader className="text-center">
+            <motion.div 
+              className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+              initial={{ rotate: -180, scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            >
+              <Target className="w-8 h-8 text-blue-600" />
+            </motion.div>
+            <CardTitle className="text-2xl font-bold text-gray-800">OT Goal Tracker</CardTitle>
+            <CardDescription>Track therapeutic goals and celebrate progress</CardDescription>
+          </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
@@ -87,7 +99,8 @@ export function LoginView({ onNavigate }: LoginViewProps) {
             </TabsContent>
           </Tabs>
         </CardContent>
-      </Card>
+        </Card>
+      </motion.div>
     </div>
   )
 }
