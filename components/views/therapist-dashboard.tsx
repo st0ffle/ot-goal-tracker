@@ -73,7 +73,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <Plus className="w-4 h-4 mr-2" />
                 New Goal
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" aria-label="Paramètres">
                 <Settings className="w-4 h-4" />
               </Button>
             </div>

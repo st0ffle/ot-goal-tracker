@@ -132,7 +132,7 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
                         </div>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600">
+                    <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600" aria-label="Paramètres de l'objectif">
                       <Settings className="w-4 h-4" />
                     </Button>
                   </div>

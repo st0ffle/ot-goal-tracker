@@ -72,6 +72,7 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
               <CardContent className="p-4">
                 <div className="flex items-start space-x-3">
                   <button 
+                    aria-label={goal.completed ? "Marquer comme non complété" : "Marquer comme complété"}
                     className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center transition-colors ${
                       goal.completed 
                         ? 'bg-green-500 text-white' 
