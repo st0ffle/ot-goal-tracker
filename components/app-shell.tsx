@@ -7,7 +7,7 @@ import {
   PatientGoals, 
   CreateGoal 
 } from './views'
-import { mockPatients, mockGoals, mockPatientGoals } from '@/lib/mock-data'
+import { mockPatients, mockGoals } from '@/lib/mock-data'
 import { ViewTransition } from './view-transition'
 import { TherapistBottomNavigation } from './therapist-bottom-navigation'
 import { PatientBottomNavigation } from './patient-bottom-navigation'
@@ -67,9 +67,11 @@ export function AppShell({ view, selectedPatient, onNavigate }: AppShellProps) {
         )
       
       case 'patient-goals':
+        // Pour la démo, on utilise les objectifs du patient 1
+        const patientGoals = mockGoals.filter(g => g.patientId === "1")
         return (
           <PatientGoals 
-            goals={mockPatientGoals}
+            goals={patientGoals}
             onNavigate={handleNavigate}
           />
         )
@@ -78,6 +80,7 @@ export function AppShell({ view, selectedPatient, onNavigate }: AppShellProps) {
         return (
           <CreateGoal 
             patients={mockPatients}
+            goals={mockGoals}
             onNavigate={handleNavigate}
           />
         )
