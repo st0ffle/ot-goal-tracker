@@ -3,8 +3,12 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Award, Target, CheckCircle, Calendar, Settings } from 'lucide-react'
+import { Progress } from "@/components/ui/progress"
+import { Plus, Award, Target, CheckCircle, Calendar, Settings, ChevronDown, ChevronRight } from 'lucide-react'
 import { ResponsiveGrid, ResponsiveStack } from '@/components/responsive-patterns'
+import { groupGoalsByPrimary, getStandalonePrimaryGoals } from '@/utils/goal-helpers'
+import type { Goal } from '@/utils/goal-helpers'
+import { useState } from 'react'
 
 interface Patient {
   id: string
@@ -17,20 +21,33 @@ interface Patient {
   archivedAt?: string
 }
 
-interface Goal {
-  id: string
-  text: string
-  completed: boolean
-  points: number
-}
+// Interface Goal déjà importée depuis utils/goal-helpers
 
 interface PatientDetailProps {
   patient: Patient
-  goals: Goal[]
+  goals: Goal[]  // Maintenant typé avec la nouvelle structure
   onNavigate: (view: string) => void
 }
 
 export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps) {
+  const [expandedGoals, setExpandedGoals] = useState<Set<string>>(new Set())
+  
+  // Filtrer les objectifs du patient
+  const patientGoals = goals.filter(g => g.patientId === patient.id)
+  
+  // Grouper les objectifs par principal/secondaire
+  const groupedGoals = groupGoalsByPrimary(patientGoals)
+  const standalonePrimaries = getStandalonePrimaryGoals(patientGoals)
+  
+  const toggleExpanded = (goalId: string) => {
+    const newExpanded = new Set(expandedGoals)
+    if (newExpanded.has(goalId)) {
+      newExpanded.delete(goalId)
+    } else {
+      newExpanded.add(goalId)
+    }
+    setExpandedGoals(newExpanded)
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm border-b">
@@ -83,24 +100,28 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
           <CardContent>
             <ResponsiveGrid>
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600">{patient.totalGoals}</div>
+                <div className="text-3xl font-bold text-blue-600">
+                  {groupedGoals.reduce((sum, g) => sum + g.secondaries.length, 0) + standalonePrimaries.length}
+                </div>
                 <div className="text-sm text-gray-600">Objectifs Actifs</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">{patient.completedToday}</div>
-                <div className="text-sm text-gray-600">Complétés Aujourd'hui</div>
+                <div className="text-3xl font-bold text-green-600">
+                  {groupedGoals.reduce((sum, g) => sum + g.completedCount, 0)}
+                </div>
+                <div className="text-sm text-gray-600">Complétés</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-600">
-                  {Math.round((patient.completedToday / patient.totalGoals) * 100)}%
+                  {groupedGoals.reduce((sum, g) => sum + g.totalPoints, 0)}
                 </div>
-                <div className="text-sm text-gray-600">Taux de Complétion</div>
+                <div className="text-sm text-gray-600">Points Total</div>
               </div>
             </ResponsiveGrid>
           </CardContent>
         </Card>
 
-        {/* Current Goals */}
+        {/* Current Goals - Nouvelle version hiérarchique */}
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -110,37 +131,95 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {goals.map((goal) => (
-                <div key={goal.id} className={`p-4 rounded-lg border-2 transition-colors ${
-                  goal.completed 
-                    ? 'bg-green-50 border-green-200' 
-                    : 'bg-white border-gray-200'
-                }`}>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-3">
-                      <div className={`mt-1 w-6 h-6 rounded-full flex items-center justify-center ${
-                        goal.completed 
-                          ? 'bg-green-500 text-white' 
-                          : 'border-2 border-gray-300'
-                      }`}>
-                        {goal.completed && <CheckCircle className="w-4 h-4" />}
-                      </div>
-                      <div>
-                        <p className={`font-medium ${goal.completed ? 'text-green-800 line-through' : 'text-gray-800'}`}>
-                          {goal.text}
-                        </p>
-                        <div className="flex items-center mt-2">
-                          <Award className="w-4 h-4 text-yellow-500 mr-1" />
-                          <span className="text-sm text-gray-600">{goal.points} points</span>
-                          {goal.completed && (
-                            <Badge className="ml-3 bg-green-100 text-green-800">
-                              Completed Today
-                            </Badge>
+              {/* Objectifs avec hiérarchie */}
+              {groupedGoals.map(({ primary, secondaries, totalPoints, completedCount }) => (
+                <div key={primary.id} className="border rounded-lg overflow-hidden">
+                  {/* Objectif principal */}
+                  <div className={`p-4 ${primary.completed ? 'bg-green-50' : 'bg-gray-50'}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3 flex-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="p-0 h-auto"
+                          onClick={() => toggleExpanded(primary.id)}
+                        >
+                          {expandedGoals.has(primary.id) ? (
+                            <ChevronDown className="w-5 h-5" />
+                          ) : (
+                            <ChevronRight className="w-5 h-5" />
+                          )}
+                        </Button>
+                        <Target className="w-5 h-5 text-blue-600" />
+                        <div className="flex-1">
+                          <p className={`font-medium ${primary.completed ? 'text-green-800 line-through' : 'text-gray-800'}`}>
+                            {primary.text}
+                          </p>
+                          {secondaries.length > 0 && (
+                            <div className="flex items-center mt-1 space-x-4">
+                              <span className="text-sm text-gray-600">
+                                {completedCount}/{secondaries.length} complétés
+                              </span>
+                              <Progress value={(completedCount / secondaries.length) * 100} className="w-24 h-2" />
+                              <Badge variant="secondary">{totalPoints} pts</Badge>
+                            </div>
                           )}
                         </div>
                       </div>
+                      <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600">
+                        <Settings className="w-4 h-4" />
+                      </Button>
                     </div>
-                    <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600" aria-label="Paramètres de l'objectif">
+                  </div>
+                  
+                  {/* Objectifs secondaires (affichés si expandé) */}
+                  {secondaries.length > 0 && expandedGoals.has(primary.id) && (
+                    <div className="border-t">
+                      {secondaries.map(secondary => (
+                        <div key={secondary.id} className="pl-12 pr-4 py-3 border-b last:border-b-0 hover:bg-gray-50">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                                secondary.completed ? 'bg-green-500 text-white' : 'border-2 border-gray-300'
+                              }`}>
+                                {secondary.completed && <CheckCircle className="w-3 h-3" />}
+                              </div>
+                              <span className={secondary.completed ? 'line-through text-gray-500' : ''}>
+                                {secondary.text}
+                              </span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Badge variant="outline">{secondary.points} pts</Badge>
+                              {secondary.completed && (
+                                <Badge className="bg-green-100 text-green-800 text-xs">
+                                  Complété
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              
+              {/* Objectifs principaux sans secondaires */}
+              {standalonePrimaries.map(goal => (
+                <div key={goal.id} className="p-4 rounded-lg border bg-white">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Target className="w-5 h-5 text-blue-600" />
+                      <div>
+                        <p className={`font-medium ${goal.completed ? 'line-through text-gray-500' : ''}`}>
+                          {goal.text}
+                        </p>
+                        <p className="text-sm text-gray-500 mt-1">
+                          Aucun objectif secondaire pour l'instant
+                        </p>
+                      </div>
+                    </div>
+                    <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600">
                       <Settings className="w-4 h-4" />
                     </Button>
                   </div>
