@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Plus, Users, Target, Award, User, Settings } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { ResponsiveContainer, ResponsiveGrid, ResponsiveHeading, ResponsiveTable } from '@/components/responsive-patterns'
 
 interface Patient {
   id: string
@@ -21,6 +22,60 @@ interface Patient {
 interface TherapistDashboardProps {
   patients: Patient[]
   onNavigate: (view: string, patientId?: string) => void
+}
+
+// Component for mobile patient cards
+function PatientCard({ patient, onNavigate }: { patient: Patient, onNavigate: (view: string, patientId?: string) => void }) {
+  return (
+    <Card className="p-4">
+      <div className="flex items-start justify-between">
+        <div className="flex items-center flex-1">
+          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+            <User className="w-6 h-6 text-blue-600" />
+          </div>
+          <div className="flex-1">
+            <div className="font-medium text-gray-800">{patient.name}</div>
+            <div className="text-sm text-gray-600 mb-2">{patient.age} ans • ID: {patient.id}</div>
+            
+            <div className="flex items-center space-x-2 mb-3">
+              <div className="flex-1">
+                <div className="text-xs text-gray-600 mb-1">Progrès du jour</div>
+                <Progress 
+                  value={(patient.completedToday / patient.totalGoals) * 100} 
+                  className="h-2"
+                />
+              </div>
+              <span className="text-sm font-medium text-gray-700">
+                {patient.completedToday}/{patient.totalGoals}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                {patient.points} pts
+              </Badge>
+              <div className="flex space-x-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => onNavigate("patient-detail", patient.id)}
+                >
+                  Voir
+                </Button>
+                <Button 
+                  size="sm" 
+                  className="bg-green-600 hover:bg-green-700"
+                  onClick={() => onNavigate("create-goal")}
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Card>
+  )
 }
 
 export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardProps) {
@@ -65,13 +120,14 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
               <Target className="w-8 h-8 text-blue-600 mr-3" />
               <h1 className="text-xl font-semibold text-gray-800">OT Goal Tracker</h1>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               <Button 
                 onClick={() => onNavigate("create-goal")}
                 className="bg-blue-600 hover:bg-blue-700"
+                size="sm"
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Nouvel Objectif
+                <Plus className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">Nouvel Objectif</span>
               </Button>
               <Button variant="ghost" size="sm" aria-label="Paramètres">
                 <Settings className="w-4 h-4" />
@@ -82,14 +138,16 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="py-8">
+        <ResponsiveContainer>
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Tableau de bord des patients</h2>
+          <ResponsiveHeading>Tableau de bord des patients</ResponsiveHeading>
           <p className="text-gray-600">Suivez les progrès et gérez les objectifs de vos patients</p>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="mb-8">
+          <ResponsiveGrid>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,6 +222,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
               </CardContent>
             </Card>
           </motion.div>
+          </ResponsiveGrid>
         </div>
 
         {/* Search and Filter */}
@@ -208,7 +267,8 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
             <CardTitle>Patients ({filteredPatients.length})</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="overflow-x-auto">
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b">
                   <tr>
@@ -275,23 +335,34 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 </tbody>
               </table>
             </div>
+
+            {/* Mobile Cards */}
+            <div className="md:hidden p-4 space-y-4">
+              {filteredPatients.map((patient) => (
+                <PatientCard 
+                  key={patient.id} 
+                  patient={patient} 
+                  onNavigate={onNavigate} 
+                />
+              ))}
+            </div>
             
-            {/* Pagination */}
-            <div className="flex items-center justify-between p-4 border-t bg-gray-50">
-              <div className="text-sm text-gray-600">
+            {/* Pagination - Responsive */}
+            <div className="flex flex-col sm:flex-row items-center justify-between p-4 border-t bg-gray-50 gap-4">
+              <div className="text-sm text-gray-600 order-2 sm:order-1">
                 Showing 1-{filteredPatients.length} of {filteredPatients.length} patients
               </div>
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 order-1 sm:order-2">
                 <Button variant="outline" size="sm" disabled>
                   Previous
                 </Button>
                 <Button variant="outline" size="sm" className="bg-blue-600 text-white">
                   1
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="hidden sm:inline-flex">
                   2
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="hidden sm:inline-flex">
                   3
                 </Button>
                 <Button variant="outline" size="sm">
@@ -301,6 +372,7 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
             </div>
           </CardContent>
         </Card>
+        </ResponsiveContainer>
       </main>
     </div>
   )

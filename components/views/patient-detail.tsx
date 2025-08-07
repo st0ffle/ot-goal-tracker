@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Plus, Award, Target, CheckCircle, Calendar, Settings } from 'lucide-react'
+import { ResponsiveGrid } from '@/components/responsive-patterns'
 
 interface Patient {
   id: string
@@ -33,22 +34,27 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
+            <div className="flex items-center min-w-0 flex-1">
               <Button 
                 variant="ghost" 
                 onClick={() => onNavigate("therapist-dashboard")}
-                className="mr-4"
+                className="mr-2 md:mr-4 flex-shrink-0"
+                size="sm"
               >
-                ← Retour
+                <span className="hidden sm:inline">← Retour</span>
+                <span className="sm:hidden">←</span>
               </Button>
-              <h1 className="text-xl font-semibold text-gray-800">{patient.name} - Détails</h1>
+              <h1 className="text-lg md:text-xl font-semibold text-gray-800 truncate">
+                {patient.name} <span className="hidden sm:inline">- Détails</span>
+              </h1>
             </div>
             <Button 
               onClick={() => onNavigate("create-goal")}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-blue-600 hover:bg-blue-700 flex-shrink-0"
+              size="sm"
             >
-              <Plus className="w-4 h-4 mr-2" />
-              Ajouter Objectif
+              <Plus className="w-4 h-4 md:mr-2" />
+              <span className="hidden md:inline">Ajouter Objectif</span>
             </Button>
           </div>
         </div>
@@ -73,7 +79,7 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ResponsiveGrid>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-600">{patient.totalGoals}</div>
                 <div className="text-sm text-gray-600">Objectifs Actifs</div>
@@ -88,7 +94,7 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
                 </div>
                 <div className="text-sm text-gray-600">Taux de Complétion</div>
               </div>
-            </div>
+            </ResponsiveGrid>
           </CardContent>
         </Card>
 

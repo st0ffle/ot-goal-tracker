@@ -26,11 +26,16 @@ export function CreateGoal({ patients, onNavigate }: CreateGoalProps) {
               <Button 
                 variant="ghost" 
                 onClick={() => onNavigate("therapist-dashboard")}
-                className="mr-4"
+                className="mr-2 md:mr-4"
+                size="sm"
               >
-                ← Retour
+                <span className="hidden sm:inline">← Retour</span>
+                <span className="sm:hidden">←</span>
               </Button>
-              <h1 className="text-xl font-semibold text-gray-800">Créer un Nouvel Objectif</h1>
+              <h1 className="text-lg md:text-xl font-semibold text-gray-800">
+                <span className="hidden sm:inline">Créer un Nouvel Objectif</span>
+                <span className="sm:hidden">Nouvel Objectif</span>
+              </h1>
             </div>
           </div>
         </div>

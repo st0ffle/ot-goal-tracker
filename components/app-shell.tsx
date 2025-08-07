@@ -9,6 +9,7 @@ import {
 } from './views'
 import { mockPatients, mockGoals, mockPatientGoals } from '@/lib/mock-data'
 import { ViewTransition } from './view-transition'
+import { BottomNavigation } from './bottom-navigation'
 
 interface AppShellProps {
   view: string
@@ -68,8 +69,16 @@ export function AppShell({ view, selectedPatient, onNavigate }: AppShellProps) {
   }
 
   return (
-    <ViewTransition viewKey={view}>
-      {renderView()}
-    </ViewTransition>
+    <div className={view !== 'login' ? 'pb-20 md:pb-0' : ''}>
+      <ViewTransition viewKey={view}>
+        {renderView()}
+      </ViewTransition>
+      {view !== 'login' && (
+        <BottomNavigation 
+          currentView={view} 
+          onNavigate={handleNavigate} 
+        />
+      )}
+    </div>
   )
 }
