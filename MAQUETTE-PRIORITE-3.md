@@ -1,910 +1,471 @@
-# 🟡 PRIORITÉ 3 - Polish & Démo (1-2 jours)
+# 🟡 PRIORITÉ 3 - Gestion Actifs/Archivés (1-2 jours)
 
-## ✨ Améliorations Visuelles
+## 🎯 Objectif Principal
+Remplacer le filtre par âge par un système de gestion des patients actifs/archivés pour correspondre aux pratiques réelles des ergothérapeutes.
 
-### ✅ Dark mode simple
-```tsx
-// components/theme-toggle.tsx
-import { useTheme } from 'next-themes'
-import { Sun, Moon } from 'lucide-react'
-import { useEffect, useState } from 'react'
-
-export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-  
-  // Éviter l'hydration mismatch
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-  
-  if (!mounted) {
-    return <div className="w-9 h-9" /> // Placeholder pour éviter le layout shift
-  }
-  
-  return (
-    <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-      aria-label="Toggle theme"
-    >
-      {theme === 'dark' ? (
-        <Sun className="w-5 h-5 text-yellow-500" />
-      ) : (
-        <Moon className="w-5 h-5 text-gray-700" />
-      )}
-    </button>
-  )
-}
-
-// app/layout.tsx - Wrapper avec ThemeProvider
-import { ThemeProvider } from 'next-themes'
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="fr" suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  )
-}
-
-// Styles Tailwind pour dark mode
-// Exemples de classes:
-// bg-white dark:bg-gray-900
-// text-gray-900 dark:text-gray-100
-// border-gray-200 dark:border-gray-700
-```
-**Pourquoi:** Feature moderne très appréciée  
-**Effort:** 1h  
-**Status:** [ ] À faire
+**Contexte métier :** Les ergos suivent souvent un patient pendant plusieurs années, avec des interruptions (ex: enfant de 8 ans suivi 3 ans, puis retour à 15 ans). Le filtre par âge n'est pas pratique car l'âge change constamment.
 
 ---
 
-### ✅ Loading states et skeletons
-```tsx
-// components/ui/loading-states.tsx
-import { Skeleton } from '@/components/ui/skeleton'
+## 🔄 Fonctionnalité : Patients Actifs vs Archivés
 
-// Skeleton pour une carte patient
-export function PatientCardSkeleton() {
-  return (
-    <div className="p-4 border rounded-lg space-y-3">
-      <div className="flex items-center space-x-3">
-        <Skeleton className="h-10 w-10 rounded-full" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-32" />
-          <Skeleton className="h-3 w-20" />
-        </div>
-      </div>
-      <Skeleton className="h-2 w-full" />
-      <div className="flex justify-between">
-        <Skeleton className="h-6 w-16" />
-        <Skeleton className="h-6 w-20" />
-      </div>
-    </div>
-  )
-}
-
-// Liste de skeletons
-export function PatientListSkeleton({ count = 5 }) {
-  return (
-    <div className="space-y-4">
-      {Array.from({ length: count }).map((_, i) => (
-        <PatientCardSkeleton key={i} />
-      ))}
-    </div>
-  )
-}
-
-// Spinner simple
-export function LoadingSpinner({ size = 'md' }) {
-  const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-8 h-8',
-    lg: 'w-12 h-12'
-  }
-  
-  return (
-    <div className="flex justify-center items-center p-4">
-      <div className={`${sizeClasses[size]} animate-spin rounded-full border-4 border-gray-200 border-t-blue-600`} />
-    </div>
-  )
-}
-
-// Hook pour simuler le chargement
-export function useLoadingState<T>(data: T, delay = 500) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [loadedData, setLoadedData] = useState<T | null>(null)
-  
-  useEffect(() => {
-    setIsLoading(true)
-    const timer = setTimeout(() => {
-      setLoadedData(data)
-      setIsLoading(false)
-    }, delay)
-    
-    return () => clearTimeout(timer)
-  }, [data, delay])
-  
-  return { isLoading, data: loadedData }
-}
-
-// Utilisation dans un composant
-export function PatientsList({ patients }) {
-  const { isLoading, data } = useLoadingState(patients, 300)
-  
-  if (isLoading) {
-    return <PatientListSkeleton />
-  }
-  
-  return (
-    <div className="space-y-4">
-      {data?.map(patient => (
-        <PatientCard key={patient.id} patient={patient} />
-      ))}
-    </div>
-  )
-}
-```
-**Pourquoi:** UX fluide et professionnelle  
-**Effort:** 1h  
-**Status:** [ ] À faire
-
----
-
-### ✅ Notifications toast améliorées
-```tsx
-// components/toast-notifications.tsx
-import { Toaster, toast } from 'sonner'
-
-// Configuration globale du Toaster (dans layout.tsx)
-export function ToastProvider() {
-  return (
-    <Toaster
-      position="bottom-right"
-      expand={false}
-      richColors
-      closeButton
-      duration={4000}
-      theme="light" // ou "dark" ou "system"
-      toastOptions={{
-        style: {
-          background: 'white',
-          border: '1px solid #e5e7eb',
-        },
-        className: 'toast-notification',
-      }}
-    />
-  )
-}
-
-// Helpers pour différents types de notifications
-export const notify = {
-  success: (message: string, description?: string) => {
-    toast.success(message, {
-      description,
-      icon: '✅',
-    })
-  },
-  
-  error: (message: string, description?: string) => {
-    toast.error(message, {
-      description,
-      icon: '❌',
-    })
-  },
-  
-  info: (message: string, description?: string) => {
-    toast.info(message, {
-      description,
-      icon: 'ℹ️',
-    })
-  },
-  
-  warning: (message: string, description?: string) => {
-    toast.warning(message, {
-      description,
-      icon: '⚠️',
-    })
-  },
-  
-  promise: <T,>(
-    promise: Promise<T>,
-    messages: {
-      loading: string
-      success: string | ((data: T) => string)
-      error: string | ((error: any) => string)
-    }
-  ) => {
-    return toast.promise(promise, messages)
-  },
-  
-  custom: (component: React.ReactNode) => {
-    toast.custom(component)
-  }
-}
-
-// Exemples d'utilisation
-export function ExampleUsage() {
-  const handleSave = async () => {
-    // Notification simple
-    notify.success('Patient enregistré!')
-    
-    // Notification avec description
-    notify.success('Objectif créé', 'Le patient recevra une notification')
-    
-    // Notification avec promesse
-    const savePromise = savePatient(data)
-    notify.promise(savePromise, {
-      loading: 'Enregistrement en cours...',
-      success: (data) => `${data.name} a été enregistré`,
-      error: (err) => `Erreur: ${err.message}`
-    })
-    
-    // Notification custom avec action
-    toast.custom((t) => (
-      <div className="flex items-center gap-2 p-4 bg-white rounded-lg shadow-lg">
-        <span>Voulez-vous annuler?</span>
-        <button
-          onClick={() => {
-            handleUndo()
-            toast.dismiss(t)
-          }}
-          className="px-3 py-1 bg-blue-500 text-white rounded"
-        >
-          Annuler
-        </button>
-      </div>
-    ))
-  }
-}
-```
-**Pourquoi:** Feedback utilisateur clair et moderne  
-**Effort:** 30 min  
-**Status:** [ ] À faire
-
----
-
-## 📊 Données de Démo
-
-### ✅ Générateur de données réalistes
+### ✅ 1. Modification de l'interface Patient
 ```typescript
-// utils/generate-demo-data.ts
-import { faker } from '@faker-js/faker/locale/fr'
-
-// Configurer la locale française
-faker.locale = 'fr'
-
-// Générateur de patients
-export function generatePatients(count: number = 10): Patient[] {
-  const therapistId = 'therapist-demo'
-  
-  return Array.from({ length: count }, (_, index) => {
-    const age = faker.number.int({ min: 5, max: 18 })
-    const totalGoals = faker.number.int({ min: 3, max: 8 })
-    const completedToday = faker.number.int({ min: 0, max: totalGoals })
-    
-    return {
-      id: `patient-${index + 1}`,
-      name: faker.person.fullName(),
-      age,
-      totalGoals,
-      completedToday,
-      points: faker.number.int({ min: 0, max: 500 }),
-      therapistId,
-      createdAt: faker.date.recent({ days: 30 }).toISOString(),
-      updatedAt: faker.date.recent({ days: 7 }).toISOString(),
-      // Données additionnelles pour le réalisme
-      diagnosis: faker.helpers.arrayElement([
-        'Trouble du spectre autistique',
-        'Dyspraxie',
-        'Trouble de l\'attention',
-        'Retard de développement',
-        'Paralysie cérébrale légère'
-      ]),
-      nextSession: faker.date.soon({ days: 7 }).toISOString(),
-      notes: faker.lorem.sentence()
-    }
-  })
-}
-
-// Générateur d'objectifs thérapeutiques
-export function generateGoals(patientId: string, count: number = 5): Goal[] {
-  const categories = ['Motricité fine', 'Motricité globale', 'Autonomie', 'Cognitif', 'Social']
-  
-  const goalTemplates = {
-    'Motricité fine': [
-      'Boutonner sa chemise sans aide',
-      'Utiliser des ciseaux pour découper',
-      'Écrire son prénom lisiblement',
-      'Lacer ses chaussures',
-      'Manipuler de petits objets'
-    ],
-    'Motricité globale': [
-      'Monter les escaliers en alternant',
-      'Sauter à cloche-pied sur 5 mètres',
-      'Lancer et attraper une balle',
-      'Faire du vélo sans roulettes',
-      'Maintenir l\'équilibre sur un pied'
-    ],
-    'Autonomie': [
-      'S\'habiller seul le matin',
-      'Préparer son sac d\'école',
-      'Se brosser les dents correctement',
-      'Ranger sa chambre',
-      'Mettre la table'
-    ],
-    'Cognitif': [
-      'Suivre des instructions à 3 étapes',
-      'Compléter un puzzle de 50 pièces',
-      'Reconnaître les émotions',
-      'Mémoriser une liste de 5 items',
-      'Résoudre des problèmes simples'
-    ],
-    'Social': [
-      'Attendre son tour dans un jeu',
-      'Partager avec les autres',
-      'Exprimer ses besoins verbalement',
-      'Reconnaître les émotions des autres',
-      'Participer à une activité de groupe'
-    ]
-  }
-  
-  return Array.from({ length: count }, (_, index) => {
-    const category = faker.helpers.arrayElement(categories)
-    const goalText = faker.helpers.arrayElement(goalTemplates[category])
-    const completed = faker.datatype.boolean(0.3) // 30% de chance d'être complété
-    
-    return {
-      id: `goal-${patientId}-${index + 1}`,
-      patientId,
-      text: goalText,
-      category,
-      completed,
-      points: faker.number.int({ min: 5, max: 20 }),
-      createdAt: faker.date.recent({ days: 14 }).toISOString(),
-      completedAt: completed ? faker.date.recent({ days: 1 }).toISOString() : null,
-      notes: faker.datatype.boolean(0.5) ? faker.lorem.sentence() : null
-    }
-  })
-}
-
-// Générateur de sessions
-export function generateSessions(patientId: string, count: number = 10): Session[] {
-  return Array.from({ length: count }, (_, index) => {
-    const date = faker.date.recent({ days: 30 - index })
-    const goalsCompleted = faker.number.int({ min: 0, max: 5 })
-    
-    return {
-      id: `session-${patientId}-${index + 1}`,
-      patientId,
-      date: date.toISOString(),
-      duration: faker.number.int({ min: 30, max: 60 }),
-      goalsCompleted,
-      notes: faker.lorem.paragraph(),
-      exercises: faker.helpers.arrayElements([
-        'Exercices de préhension',
-        'Activités de coordination',
-        'Jeux de construction',
-        'Dessin et coloriage',
-        'Exercices d\'équilibre',
-        'Activités sensorielles'
-      ], { min: 2, max: 4 })
-    }
-  })
-}
-
-// Fonction pour générer un jeu de données complet
-export function generateCompleteDataset() {
-  const patients = generatePatients(15)
-  const goals = patients.flatMap(p => generateGoals(p.id, 5))
-  const sessions = patients.flatMap(p => generateSessions(p.id, 8))
-  
-  return {
-    patients,
-    goals,
-    sessions,
-    stats: {
-      totalPatients: patients.length,
-      totalGoals: goals.length,
-      completedGoals: goals.filter(g => g.completed).length,
-      totalSessions: sessions.length,
-      avgGoalsPerPatient: Math.round(goals.length / patients.length)
-    }
-  }
+// Mise à jour de l'interface Patient dans tous les fichiers
+// components/views/therapist-dashboard.tsx
+// components/views/patient-detail.tsx  
+// components/views/create-goal.tsx
+interface Patient {
+  id: string
+  name: string
+  age: number
+  totalGoals: number
+  completedToday: number
+  points: number
+  status: 'active' | 'archived'  // ← NOUVEAU
+  archivedAt?: string           // ← NOUVEAU (date d'archivage)
 }
 ```
-
-**Installation faker:**
-```bash
-npm install --save-dev @faker-js/faker
-```
-
-**Pourquoi:** Démo avec données crédibles et variées  
-**Effort:** 1h  
-**Status:** [ ] À faire
+**Pourquoi :** Permettre de distinguer les patients en cours de suivi des anciens patients  
+**Effort :** 10 min  
+**Status :** [ ] À faire
 
 ---
 
-### ✅ Mode démo avec données pré-remplies
-```tsx
-// components/demo-mode.tsx
-import { useState } from 'react'
-import { generateCompleteDataset } from '@/utils/generate-demo-data'
-import { Button } from '@/components/ui/button'
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog'
+### ✅ 2. Mise à jour des mock data
+```typescript
+// lib/mock-data.ts - Ajout de patients avec statuts
+export const mockPatients = [
+  // Patients actifs (comme actuellement)
+  { id: "1", name: "Emma Johnson", age: 8, totalGoals: 4, completedToday: 3, points: 245, status: 'active' },
+  { id: "2", name: "Michael Chen", age: 12, totalGoals: 5, completedToday: 4, points: 180, status: 'active' },
+  { id: "3", name: "Sarah Williams", age: 16, totalGoals: 3, completedToday: 2, points: 320, status: 'active' },
+  { id: "4", name: "Alex Rodriguez", age: 10, totalGoals: 6, completedToday: 5, points: 410, status: 'active' },
+  { id: "5", name: "Lily Thompson", age: 7, totalGoals: 3, completedToday: 1, points: 125, status: 'active' },
+  { id: "6", name: "David Kim", age: 14, totalGoals: 4, completedToday: 4, points: 380, status: 'active' },
+  { id: "7", name: "Sophie Martin", age: 9, totalGoals: 5, completedToday: 3, points: 290, status: 'active' },
+  
+  // Patients archivés (nouveaux)
+  { id: "11", name: "Antoine Lefebvre", age: 18, totalGoals: 0, completedToday: 0, points: 650, status: 'archived', archivedAt: '2023-06-15T10:00:00Z' },
+  { id: "12", name: "Camille Dubois", age: 16, totalGoals: 0, completedToday: 0, points: 480, status: 'archived', archivedAt: '2023-09-20T14:30:00Z' },
+  { id: "13", name: "Hugo Moreau", age: 20, totalGoals: 0, completedToday: 0, points: 720, status: 'archived', archivedAt: '2022-12-10T09:15:00Z' },
+]
+```
+**Pourquoi :** Données de test avec mix actifs/archivés réaliste  
+**Effort :** 5 min  
+**Status :** [ ] À faire
 
-export function DemoModeButton() {
-  const [showDialog, setShowDialog] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+---
+
+### ✅ 3. Interface Toggle dans le Dashboard
+```tsx
+// components/views/therapist-dashboard.tsx - Modification du state et filtre
+export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardProps) {
+  const [searchTerm, setSearchTerm] = useState("")
+  // ❌ SUPPRIMER const [ageFilter, setAgeFilter] = useState("")
+  const [progressFilter, setProgressFilter] = useState("")
+  const [viewMode, setViewMode] = useState<'active' | 'archived'>('active') // ← NOUVEAU
+
+  // Séparer les patients par statut
+  const activePatients = patients.filter(p => p.status === 'active')
+  const archivedPatients = patients.filter(p => p.status === 'archived')
   
-  const loadDemoData = async () => {
-    setIsLoading(true)
-    
-    try {
-      // Générer les données
-      const demoData = generateCompleteDataset()
+  const currentPatients = viewMode === 'active' ? activePatients : archivedPatients
+  
+  const getFilteredPatients = () => {
+    return currentPatients.filter(patient => {
+      if (!patient || !patient.name) return false
       
-      // Sauvegarder dans localStorage
-      localStorage.setItem('ot-patients', JSON.stringify(demoData.patients))
-      localStorage.setItem('ot-goals', JSON.stringify(demoData.goals))
-      localStorage.setItem('ot-sessions', JSON.stringify(demoData.sessions))
+      const matchesSearch = !searchTerm || patient.name.toLowerCase().includes(searchTerm.toLowerCase())
       
-      // Créer un utilisateur démo
-      const demoUser = {
-        id: 'demo-therapist',
-        email: 'demo@ot-tracker.com',
-        name: 'Dr. Demo',
-        role: 'therapist',
-        avatar: 'https://ui-avatars.com/api/?name=Dr+Demo'
+      // ❌ SUPPRIMER le filtre par âge (lignes 92-97)
+      
+      // Garder seulement le filtre par progression
+      let matchesProgress = true
+      if (progressFilter) {
+        const completionRate = (patient.completedToday / patient.totalGoals) * 100 || 0
+        if (progressFilter === "high") matchesProgress = completionRate >= 80
+        if (progressFilter === "medium") matchesProgress = completionRate >= 50 && completionRate < 80
+        if (progressFilter === "low") matchesProgress = completionRate < 50
       }
-      localStorage.setItem('ot-user', JSON.stringify(demoUser))
       
-      // Ajouter un flag pour indiquer qu'on est en mode démo
-      localStorage.setItem('ot-demo-mode', 'true')
-      
-      // Notification de succès
-      notify.success(
-        'Mode démo activé!',
-        `${demoData.patients.length} patients et ${demoData.goals.length} objectifs chargés`
-      )
-      
-      // Recharger la page
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
-    } catch (error) {
-      notify.error('Erreur lors du chargement des données de démo')
-      console.error(error)
-    } finally {
-      setIsLoading(false)
-    }
+      return matchesSearch && matchesProgress
+    })
   }
-  
-  const clearDemoData = () => {
-    // Effacer toutes les données
-    const keysToRemove = [
-      'ot-patients',
-      'ot-goals', 
-      'ot-sessions',
-      'ot-user',
-      'ot-demo-mode'
-    ]
-    
-    keysToRemove.forEach(key => localStorage.removeItem(key))
-    
-    notify.info('Données de démo supprimées')
-    window.location.reload()
+
+  const handleArchivePatient = (patientId: string) => {
+    // Logique d'archivage simple
+    const updatedPatients = patients.map(p => 
+      p.id === patientId 
+        ? { ...p, status: 'archived' as const, archivedAt: new Date().toISOString() }
+        : p
+    )
+    // Pour l'instant, juste un console.log. En vrai, sauvegarder les données.
+    console.log('Patient archivé:', patientId, updatedPatients)
   }
-  
-  const isDemoMode = localStorage.getItem('ot-demo-mode') === 'true'
-  
-  return (
-    <>
+
+  const handleReactivatePatient = (patientId: string) => {
+    // Logique de réactivation simple
+    const updatedPatients = patients.map(p => 
+      p.id === patientId 
+        ? { ...p, status: 'active' as const, archivedAt: undefined }
+        : p
+    )
+    // Pour l'instant, juste un console.log. En vrai, sauvegarder les données.
+    console.log('Patient réactivé:', patientId, updatedPatients)
+  }
+
+  // ... le reste reste identique jusqu'à la partie JSX
+```
+**Pourquoi :** État et logique pour gérer les deux modes  
+**Effort :** 15 min  
+**Status :** [ ] À faire
+
+---
+
+### ✅ 4. Bouton Toggle dans le Header du Dashboard
+```tsx
+// Dans le JSX du dashboard, avant les Stats Cards
+<div className="mb-8">
+  <div className="flex items-center justify-between">
+    <div>
+      <ResponsiveHeading>Tableau de bord des patients</ResponsiveHeading>
+      <p className="text-gray-600">Suivez les progrès et gérez les objectifs de vos patients</p>
+    </div>
+    
+    {/* NOUVEAU: Toggle Actifs/Archivés */}
+    <div className="flex items-center">
       <Button
-        variant={isDemoMode ? 'destructive' : 'outline'}
-        onClick={() => setShowDialog(true)}
-        className="flex items-center gap-2"
+        variant={viewMode === 'active' ? 'secondary' : 'outline'}
+        onClick={() => setViewMode(viewMode === 'active' ? 'archived' : 'active')}
+        className="flex items-center space-x-2"
       >
-        {isDemoMode ? (
+        {viewMode === 'active' ? (
           <>
-            <span className="animate-pulse">●</span>
-            Mode Démo Actif
+            <Archive className="w-4 h-4" />
+            <span className="hidden sm:inline">Archivés ({archivedPatients.length})</span>
+            <span className="sm:hidden">Arch. ({archivedPatients.length})</span>
           </>
         ) : (
-          'Charger Démo'
+          <>
+            <Users className="w-4 h-4" />
+            <span className="hidden sm:inline">Actifs ({activePatients.length})</span>
+            <span className="sm:hidden">Act. ({activePatients.length})</span>
+          </>
         )}
       </Button>
-      
-      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              {isDemoMode ? 'Désactiver le mode démo?' : 'Activer le mode démo?'}
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              {isDemoMode ? (
-                'Cela supprimera toutes les données de démonstration. Vos vraies données ne seront pas affectées.'
-              ) : (
-                <>
-                  <p>Cela va charger des données de démonstration incluant:</p>
-                  <ul className="list-disc list-inside mt-2">
-                    <li>15 patients avec des profils variés</li>
-                    <li>75 objectifs thérapeutiques</li>
-                    <li>120 sessions d'historique</li>
-                    <li>Un compte thérapeute de démo</li>
-                  </ul>
-                  <p className="mt-2 text-yellow-600">
-                    ⚠️ Les données actuelles seront remplacées
-                  </p>
-                </>
-              )}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Annuler</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={isDemoMode ? clearDemoData : loadDemoData}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Chargement...' : isDemoMode ? 'Supprimer' : 'Charger la démo'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
-  )
-}
-
-// Badge pour indiquer le mode démo
-export function DemoModeBadge() {
-  const isDemoMode = localStorage.getItem('ot-demo-mode') === 'true'
-  
-  if (!isDemoMode) return null
-  
-  return (
-    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="bg-yellow-500 text-yellow-900 px-4 py-1 rounded-b-lg text-sm font-medium">
-        🎭 Mode Démonstration
-      </div>
     </div>
-  )
-}
+  </div>
+</div>
 ```
-**Pourquoi:** Faciliter les présentations et tests  
-**Effort:** 30 min  
-**Status:** [ ] À faire
+**Pourquoi :** Navigation claire entre les deux modes  
+**Effort :** 10 min  
+**Status :** [ ] À faire
 
 ---
 
-## 🚀 Optimisations Simples
-
-### ✅ Lazy loading des vues
+### ✅ 5. Mise à jour des filtres (Supprimer âge)
 ```tsx
-// app/page.tsx - Version optimisée
-import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
-import { LoadingSpinner } from '@/components/ui/loading-states'
-
-// Lazy load des vues principales
-const LoginView = dynamic(() => import('@/components/views/login-view'), {
-  loading: () => <LoadingSpinner size="lg" />
-})
-
-const TherapistDashboard = dynamic(() => import('@/components/views/therapist-dashboard'), {
-  loading: () => <LoadingSpinner size="lg" />
-})
-
-const PatientDetail = dynamic(() => import('@/components/views/patient-detail'), {
-  loading: () => <LoadingSpinner size="lg" />
-})
-
-const CreateGoal = dynamic(() => import('@/components/views/create-goal'), {
-  loading: () => <LoadingSpinner size="lg" />
-})
-
-// Map des vues
-const viewComponents = {
-  login: LoginView,
-  dashboard: TherapistDashboard,
-  'patient-detail': PatientDetail,
-  'create-goal': CreateGoal
-}
-
-export default function App() {
-  const [currentView, setCurrentView] = useState('login')
-  
-  const ViewComponent = viewComponents[currentView] || LoginView
-  
-  return (
-    <Suspense fallback={<LoadingSpinner size="lg" />}>
-      <ViewComponent onNavigate={setCurrentView} />
-    </Suspense>
-  )
-}
-```
-**Pourquoi:** Chargement initial plus rapide  
-**Effort:** 30 min  
-**Status:** [ ] À faire
-
----
-
-### ✅ Mémoisation des calculs lourds
-```tsx
-// hooks/use-statistics.ts
-import { useMemo } from 'react'
-
-export function usePatientStatistics(patients: Patient[]) {
-  // Calculs lourds mémorisés
-  const statistics = useMemo(() => {
-    if (!patients.length) {
-      return {
-        total: 0,
-        avgAge: 0,
-        avgCompletion: 0,
-        totalPoints: 0,
-        byAgeGroup: {},
-        byProgress: {}
-      }
-    }
-    
-    const total = patients.length
-    const avgAge = Math.round(
-      patients.reduce((sum, p) => sum + p.age, 0) / total
-    )
-    
-    const avgCompletion = Math.round(
-      patients.reduce((sum, p) => {
-        const rate = (p.completedToday / p.totalGoals) * 100
-        return sum + rate
-      }, 0) / total
-    )
-    
-    const totalPoints = patients.reduce((sum, p) => sum + p.points, 0)
-    
-    // Grouper par tranche d'âge
-    const byAgeGroup = patients.reduce((groups, p) => {
-      const group = p.age < 10 ? '5-9' : p.age < 15 ? '10-14' : '15+'
-      groups[group] = (groups[group] || 0) + 1
-      return groups
-    }, {} as Record<string, number>)
-    
-    // Grouper par progression
-    const byProgress = patients.reduce((groups, p) => {
-      const rate = (p.completedToday / p.totalGoals) * 100
-      const level = rate >= 80 ? 'high' : rate >= 40 ? 'medium' : 'low'
-      groups[level] = (groups[level] || 0) + 1
-      return groups
-    }, {} as Record<string, number>)
-    
-    return {
-      total,
-      avgAge,
-      avgCompletion,
-      totalPoints,
-      byAgeGroup,
-      byProgress
-    }
-  }, [patients])
-  
-  // Tendances (compare avec la semaine dernière)
-  const trends = useMemo(() => {
-    // Simuler des tendances pour la démo
-    return {
-      patientsChange: '+12%',
-      completionChange: '+5%',
-      pointsChange: '+18%',
-      isPositive: true
-    }
-  }, [])
-  
-  return { statistics, trends }
-}
-
-// Utilisation
-export function StatsCards({ patients }) {
-  const { statistics, trends } = usePatientStatistics(patients)
-  
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <StatCard
-        title="Total Patients"
-        value={statistics.total}
-        trend={trends.patientsChange}
-        isPositive={trends.isPositive}
+// Dans la section Search and Filter - SUPPRIMER le filtre âge (lignes 240-249)
+<div className="mb-6">
+  <div className="flex flex-col sm:flex-row gap-4">
+    <div className="flex-1">
+      <Input 
+        placeholder={`Rechercher des patients ${viewMode === 'active' ? 'actifs' : 'archivés'} par nom...`}
+        className="w-full"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
-      {/* Autres cartes... */}
     </div>
-  )
-}
+    <div className="flex gap-2">
+      {/* ❌ SUPPRIMER le select âge complètement */}
+      <select 
+        className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        value={progressFilter}
+        onChange={(e) => setProgressFilter(e.target.value)}
+      >
+        <option value="">Tous les progrès</option>
+        <option value="high">Élevé (80%+)</option>
+        <option value="medium">Moyen (50-79%)</option>
+        <option value="low">Faible (&lt;50%)</option>
+      </select>
+    </div>
+  </div>
+</div>
 ```
-**Pourquoi:** Performance fluide même avec beaucoup de données  
-**Effort:** 30 min  
-**Status:** [ ] À faire
+**Pourquoi :** Plus de filtre âge, interface plus simple  
+**Effort :** 5 min  
+**Status :** [ ] À faire
 
 ---
 
-## 📋 Checklist Priorité 3 avec Points de Test
+### ✅ 6. Boutons Archiver/Réactiver sur les cartes patients
+```tsx
+// Dans le tableau desktop (ligne 315+), remplacer les actions:
+<td className="p-4">
+  <div className="flex space-x-2">
+    <Button 
+      variant="outline" 
+      size="sm"
+      onClick={() => onNavigate("patient-detail", patient.id)}
+    >
+      Voir
+    </Button>
+    <Button 
+      size="sm" 
+      className="bg-green-600 hover:bg-green-700"
+      onClick={() => onNavigate("create-goal")}
+    >
+      Ajouter Objectif
+    </Button>
+    {/* NOUVEAU: Bouton Archiver/Réactiver */}
+    {viewMode === 'active' ? (
+      <Button 
+        variant="outline" 
+        size="sm"
+        className="text-orange-600 border-orange-600 hover:bg-orange-50"
+        onClick={() => handleArchivePatient(patient.id)}
+      >
+        Archiver
+      </Button>
+    ) : (
+      <Button 
+        variant="outline" 
+        size="sm"
+        className="text-green-600 border-green-600 hover:bg-green-50"
+        onClick={() => handleReactivatePatient(patient.id)}
+      >
+        Réactiver
+      </Button>
+    )}
+  </div>
+</td>
 
-### 🔧 ÉTAPE 1 : Dark Mode et Thème
-- [ ] Créer `components/theme-toggle.tsx`
-- [ ] Configurer ThemeProvider dans layout.tsx
-- [ ] Ajouter le bouton toggle dans le header
-- [ ] Appliquer les classes dark: sur au moins 5 composants
+// Mise à jour de PatientCard pour mobile (ligne 57+):
+function PatientCard({ patient, onNavigate, onArchive, onReactivate, viewMode }: PatientCardProps) {
+  // ... contenu existant identique jusqu'aux boutons...
+  
+  <div className="flex items-center justify-between">
+    <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+      {patient.points} pts
+    </Badge>
+    <div className="flex space-x-2">
+      <Button 
+        variant="outline" 
+        size="sm"
+        onClick={() => onNavigate("patient-detail", patient.id)}
+      >
+        Voir
+      </Button>
+      <Button 
+        size="sm" 
+        className="bg-green-600 hover:bg-green-700"
+        onClick={() => onNavigate("create-goal")}
+      >
+        <Plus className="w-4 h-4" />
+      </Button>
+      {/* NOUVEAU: Bouton Archiver/Réactiver mobile */}
+      {viewMode === 'active' ? (
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="text-orange-600 border-orange-600"
+          onClick={() => onArchive(patient.id)}
+        >
+          <Archive className="w-4 h-4" />
+        </Button>
+      ) : (
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="text-green-600 border-green-600"
+          onClick={() => onReactivate(patient.id)}
+        >
+          <RotateCcw className="w-4 h-4" />
+        </Button>
+      )}
+    </div>
+  </div>
+}
+```
+**Pourquoi :** Action directe sur chaque patient, pas de confirmation nécessaire  
+**Effort :** 20 min  
+**Status :** [ ] À faire
+
+---
+
+### ✅ 7. Imports des nouvelles icônes
+```tsx
+// En haut de therapist-dashboard.tsx, ajouter aux imports existants:
+import { Plus, Users, Target, Award, User, Settings, Archive, RotateCcw } from 'lucide-react'
+```
+**Pourquoi :** Icônes pour archiver et réactiver  
+**Effort :** 1 min  
+**Status :** [ ] À faire
+
+---
+
+### ✅ 8. Notification toast (optionnel - système déjà disponible)
+```tsx
+// Si on veut ajouter des notifications (le projet a déjà sonner installé):
+import { toast } from "sonner"
+
+const handleArchivePatient = (patientId: string) => {
+  // ... logique d'archivage ...
+  
+  // Notification optionnelle (simple)
+  toast.success("Patient archivé")
+}
+
+const handleReactivatePatient = (patientId: string) => {
+  // ... logique de réactivation ...
+  
+  // Notification optionnelle (simple)
+  toast.success("Patient réactivé")
+}
+
+// Et dans le JSX principal, ajouter le Toaster (si pas déjà fait):
+// import { Toaster } from "sonner"
+// <Toaster />
+```
+**Pourquoi :** Feedback utilisateur simple (optionnel car système toast déjà installé)  
+**Effort :** 5 min  
+**Status :** [ ] Optionnel
+
+---
+
+## 📋 Checklist Priorité 3 - Version Actifs/Archivés
+
+### 🔧 ÉTAPE 1 : Préparation des données et types
+- [ ] Ajouter `status` et `archivedAt` à l'interface Patient (3 fichiers)
+- [ ] Mettre à jour `lib/mock-data.ts` avec patients archivés
+- [ ] Ajouter les imports d'icônes `Archive` et `RotateCcw`
 
 ### 🧪 POINT DE TEST #1
 ```bash
 npm run dev
 ```
 **✓ Vérifier :**
-- Cliquer sur le toggle dark mode
-- Tout doit passer en sombre (pas de zones blanches oubliées)
-- Rafraîchir → le thème persiste
-- Contraste suffisant en dark mode
-- Pas de flash blanc au chargement
+- Pas d'erreurs TypeScript au démarrage
+- Page se charge normalement
+- Mock data contient des patients avec `status`
 
 **🛑 STOP - DEMANDER FEEDBACK UTILISATEUR**
-> "Dark mode implémenté. Tous les éléments sont visibles ? Le contraste est bon ?"
+> "Types et données de base OK ? Pas d'erreurs au démarrage ?"
 
 ---
 
-### 🔧 ÉTAPE 2 : Loading States et Feedback
-- [ ] Créer `components/ui/loading-states.tsx`
-- [ ] Ajouter des skeletons pour les listes
-- [ ] Créer `components/toast-notifications.tsx`
-- [ ] Configurer Toaster dans layout.tsx
-- [ ] Ajouter des toasts sur les actions CRUD
+### 🔧 ÉTAPE 2 : Supprimer le filtre âge et ajouter le toggle
+- [ ] Supprimer `const [ageFilter, setAgeFilter] = useState("")` (ligne 83)
+- [ ] Supprimer la logique de filtre âge dans `getFilteredPatients` (lignes 92-97)
+- [ ] Supprimer le select âge dans l'interface (lignes 240-249)
+- [ ] Ajouter l'état `viewMode` et la logique de séparation des patients
+- [ ] Ajouter le bouton toggle dans le header
 
 ### 🧪 POINT DE TEST #2
 ```bash
 npm run dev
 ```
 **✓ Vérifier :**
-- Simuler un chargement → skeletons visibles
-- Ajouter un patient → toast "Patient ajouté ✅"
-- Supprimer → toast "Patient supprimé"
-- Erreur simulée → toast rouge d'erreur
-- Position des toasts (bottom-right)
-- Les toasts disparaissent après 4s
+- Plus de filtre âge visible
+- Bouton "Archivés (X)" visible en haut à droite
+- Clic sur le bouton → change vers "Actifs (X)"
+- Liste de patients change selon le mode
+- Placeholder de recherche s'adapte
 
 **🛑 STOP - DEMANDER FEEDBACK UTILISATEUR**
-> "Loading states et notifications OK ? L'UX est fluide ? Prêt pour les données de démo ?"
+> "Navigation entre actifs et archivés fonctionne ? Interface claire ?"
 
 ---
 
-### 🔧 ÉTAPE 3 : Générateur de Données Réalistes
-- [ ] Installer @faker-js/faker
-- [ ] Créer `utils/generate-demo-data.ts`
-- [ ] Générer 15 patients avec données françaises
-- [ ] Générer 5 objectifs par patient
-- [ ] Ajouter des diagnostics réalistes
+### 🔧 ÉTAPE 3 : Ajouter les boutons d'action
+- [ ] Ajouter les fonctions `handleArchivePatient` et `handleReactivatePatient`
+- [ ] Modifier les actions du tableau desktop
+- [ ] Modifier la fonction `PatientCard` pour mobile
+- [ ] Passer les props nécessaires aux composants
 
 ### 🧪 POINT DE TEST #3
 ```bash
 npm run dev
-# Dans la console du navigateur :
-import { generateCompleteDataset } from './utils/generate-demo-data'
-const data = generateCompleteDataset()
-console.log(data)
 ```
 **✓ Vérifier :**
-- Noms français réalistes
-- Âges cohérents (5-18 ans)
-- Objectifs thérapeutiques crédibles
-- Variété dans les données
-- Pas de données absurdes
+- Bouton "Archiver" sur patients actifs (orange)
+- Bouton "Réactiver" sur patients archivés (vert)
+- Clic → patient change de liste (vérifier console.log)
+- Compteurs se mettent à jour
+- Version mobile fonctionne (icônes)
 
 **🛑 STOP - DEMANDER FEEDBACK UTILISATEUR**
-> "Générateur de données OK ? Les données sont crédibles pour une démo ?"
+> "Actions d'archivage/réactivation fonctionnelles ? UX claire sur mobile et desktop ?"
 
 ---
 
-### 🔧 ÉTAPE 4 : Mode Démo One-Click
-- [ ] Créer `components/demo-mode.tsx`
-- [ ] Ajouter bouton "Charger Démo" dans le header
-- [ ] Badge "Mode Démo" quand actif
-- [ ] Bouton pour nettoyer les données de démo
-- [ ] Confirmation avant écrasement des données
+### 🔧 ÉTAPE 4 : Finition et test complet
+- [ ] Tester la recherche dans chaque mode
+- [ ] Tester le filtre par progression dans les deux modes
+- [ ] Vérifier la responsivité (mobile/desktop)
+- [ ] Ajouter les notifications toast (optionnel)
+- [ ] Nettoyer le code (supprimer les console.log en prod)
 
-### 🧪 POINT DE TEST #4
-```bash
-npm run dev
-```
-**✓ Vérifier :**
-- Cliquer "Charger Démo" → 15 patients apparaissent
-- Badge jaune "Mode Démo" visible
-- Données variées et réalistes
-- Export JSON → fichier contient toutes les données
-- "Supprimer Démo" → retour à zéro
-- Re-charger démo → nouvelles données (pas les mêmes)
-
-**🛑 STOP - DEMANDER FEEDBACK UTILISATEUR**
-> "Mode démo one-click fonctionnel ? Pratique pour les présentations ?"
-
----
-
-### 🔧 ÉTAPE 5 : Optimisations et Polish Final
-- [ ] Implémenter lazy loading des vues
-- [ ] Créer `hooks/use-statistics.ts` avec mémoisation
-- [ ] Ajouter des animations subtiles (framer-motion)
-- [ ] Optimiser les images avec next/image
-- [ ] Vérifier les performances
-
-### 🧪 POINT DE TEST #5 - TEST FINAL COMPLET
+### 🧪 POINT DE TEST #4 - TEST FINAL COMPLET
 ```bash
 npm run dev
 ```
 
-**⚡ Test Performance :**
-- Charger 50+ patients via démo
-- Filtrer → doit être instantané
-- Changer de vue → transition fluide
-- Dark/Light mode → pas de lag
-- Export 50+ patients → rapide
-
-**🎨 Test Visuel :**
-- Animations entrée/sortie des vues
-- Hover sur les boutons
-- Transitions douces partout
-- Pas d'éléments qui "sautent"
-- Dark mode parfait
-
-**📱 Test Cross-Platform :**
-- Chrome, Firefox, Safari
-- Mobile (iOS/Android si possible)
-- Tablette
-- Différentes résolutions
-
-**🎯 Test Démo Complète (5 min) :**
-1. Login
-2. Charger données démo
-3. Naviguer entre patients
-4. Ajouter un patient
-5. Filtrer la liste
-6. Voir détails patient
-7. Créer un objectif
-8. Basculer dark mode
-9. Export données
-10. Menu mobile
-11. Déconnexion
+**🎯 Scénario de test complet (3 min) :**
+1. Dashboard s'ouvre sur les patients actifs ✓
+2. Rechercher "Emma" → la trouve dans les actifs ✓
+3. Cliquer "Archivés (3)" → voir les patients archivés ✓
+4. Rechercher "Antoine" → le trouve dans les archivés ✓
+5. Cliquer "Réactiver" sur Antoine → (voir console.log) ✓
+6. Retour aux "Actifs" → (Antoine serait présent en vrai) ✓
+7. Archiver un patient actif → (voir console.log) ✓
+8. Filtrer par progression dans chaque mode ✓
+9. Test mobile : toggle et boutons fonctionnels ✓
+10. Pas d'erreurs console ✓
 
 **🛑 STOP - VALIDATION FINALE DU PROJET**
-> "🎉 Maquette complète terminée ! Prête pour présentation ? Bugs restants ? Satisfaction générale ?"
+> "🎉 Fonctionnalité Actifs/Archivés terminée ! Plus pratique que le filtre par âge pour les ergothérapeutes ?"
 
 ---
 
 ## 🎯 Résultat Attendu
 
 Après cette priorité :
-- **Dark mode** fonctionnel et élégant
-- **Loading states** partout où nécessaire
-- **Notifications** claires et informatives
-- **Données de démo** réalistes (15+ patients)
-- **Mode démo** activable en 1 clic
-- **Performance** optimisée (<2s chargement initial)
-- **Animations** fluides et professionnelles
+- **Filtre par âge supprimé** ❌ (plus pertinent métier)
+- **Toggle Actifs/Archivés** ✅ (navigation claire un seul bouton)
+- **Actions Archiver/Réactiver** ✅ (workflows ergothérapeute réels)
+- **Recherche contextuelle** ✅ (dans le mode courant uniquement)
+- **Interface responsive** ✅ (mobile + desktop)
+- **Mock data adaptées** ✅ (patients archivés exemples)
 
 ---
 
 ## 💡 Tips d'Implémentation
 
-1. **Dark mode**: Tester avec `prefers-color-scheme` du système
-2. **Faker**: Utiliser la locale française pour des noms réalistes
-3. **Animations**: Rester subtil, éviter l'excès
-4. **Demo mode**: Ajouter un badge visible pour éviter la confusion
-5. **Memoization**: Mesurer avant/après pour valider le gain
+1. **Suppression propre :** Bien supprimer toutes les références au filtre âge (état, logique, UI)
+2. **Toggle simple :** Un seul bouton qui alterne, pas deux boutons séparés
+3. **Couleurs cohérentes :** Orange pour archiver, vert pour réactiver
+4. **Mobile-first :** Tester les boutons sur petits écrans (assez grands)
+5. **Console.log :** Pour le moment, juste logger les actions (pas de vraie persistance)
+
+---
+
+## 🔄 Extensions Possibles (hors scope P3)
+
+- **Persistance :** Sauvegarder dans localStorage ou base de données
+- **Historique :** Date d'archivage visible sur les cartes
+- **Bulk actions :** Archiver plusieurs patients d'un coup  
+- **Filtres avancés :** Par date d'archivage, durée de suivi, etc.
+- **Animation :** Transition smooth entre les listes
 
 ---
 
 ## 📊 Métriques de Succès
 
-- ✅ Dark mode sans flash au chargement
-- ✅ Toutes les actions ont un feedback visuel
-- ✅ Données de démo générées en <1s
-- ✅ Lazy loading réduit le bundle initial de 50%+
-- ✅ Animations à 60 FPS
-- ✅ Mode démo clairement identifiable
+- ✅ Zéro référence au filtre par âge dans le code
+- ✅ Toggle fonctionne sans lag sur mobile et desktop  
+- ✅ Actions instantanées (pas de délai perceptible)
+- ✅ Recherche fonctionne dans chaque mode séparément
+- ✅ Interface intuitive pour les ergothérapeutes
+- ✅ Code propre et maintenable
