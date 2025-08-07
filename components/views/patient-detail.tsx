@@ -13,6 +13,8 @@ interface Patient {
   totalGoals: number
   completedToday: number
   points: number
+  status: 'active' | 'archived'
+  archivedAt?: string
 }
 
 interface Goal {

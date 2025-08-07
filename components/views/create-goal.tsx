@@ -10,6 +10,11 @@ interface Patient {
   id: string
   name: string
   age: number
+  totalGoals: number
+  completedToday: number
+  points: number
+  status: 'active' | 'archived'
+  archivedAt?: string
 }
 
 interface CreateGoalProps {

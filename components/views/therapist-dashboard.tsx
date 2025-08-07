@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { Plus, Users, Target, Award, User, Settings } from 'lucide-react'
+import { Plus, Users, Target, Award, User, Settings, Archive, RotateCcw } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { ResponsiveContainer, ResponsiveGrid, ResponsiveHeading, ResponsiveTable } from '@/components/responsive-patterns'
 
@@ -17,6 +17,8 @@ interface Patient {
   totalGoals: number
   completedToday: number
   points: number
+  status: 'active' | 'archived'
+  archivedAt?: string
 }
 
 interface TherapistDashboardProps {
@@ -25,7 +27,19 @@ interface TherapistDashboardProps {
 }
 
 // Component for mobile patient cards
-function PatientCard({ patient, onNavigate }: { patient: Patient, onNavigate: (view: string, patientId?: string) => void }) {
+function PatientCard({ 
+  patient, 
+  onNavigate, 
+  onArchive, 
+  onReactivate, 
+  viewMode 
+}: { 
+  patient: Patient, 
+  onNavigate: (view: string, patientId?: string) => void,
+  onArchive: (patientId: string) => void,
+  onReactivate: (patientId: string) => void,
+  viewMode: 'active' | 'archived'
+}) {
   return (
     <Card className="p-4">
       <div className="flex items-start justify-between">
@@ -69,6 +83,26 @@ function PatientCard({ patient, onNavigate }: { patient: Patient, onNavigate: (v
                 >
                   <Plus className="w-4 h-4" />
                 </Button>
+                {/* Bouton Archiver/Réactiver mobile */}
+                {viewMode === 'active' ? (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="text-orange-600 border-orange-600"
+                    onClick={() => onArchive(patient.id)}
+                  >
+                    <Archive className="w-4 h-4" />
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="text-green-600 border-green-600"
+                    onClick={() => onReactivate(patient.id)}
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </Button>
+                )}
               </div>
             </div>
           </div>
@@ -80,32 +114,41 @@ function PatientCard({ patient, onNavigate }: { patient: Patient, onNavigate: (v
 
 export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardProps) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [ageFilter, setAgeFilter] = useState("")
   const [progressFilter, setProgressFilter] = useState("")
+  const [viewMode, setViewMode] = useState<'active' | 'archived'>('active')
 
+  // Séparer les patients par statut
+  const activePatients = patients.filter(p => p.status === 'active')
+  const archivedPatients = patients.filter(p => p.status === 'archived')
+  
+  const currentPatients = viewMode === 'active' ? activePatients : archivedPatients
+  
   const getFilteredPatients = () => {
-    return patients.filter(patient => {
+    return currentPatients.filter(patient => {
       if (!patient || !patient.name) return false
       
       const matchesSearch = !searchTerm || patient.name.toLowerCase().includes(searchTerm.toLowerCase())
       
-      let matchesAge = true
-      if (ageFilter) {
-        if (ageFilter === "5-10") matchesAge = patient.age >= 5 && patient.age <= 10
-        if (ageFilter === "11-15") matchesAge = patient.age >= 11 && patient.age <= 15
-        if (ageFilter === "16-20") matchesAge = patient.age >= 16 && patient.age <= 20
-      }
-      
       let matchesProgress = true
       if (progressFilter) {
-        const completionRate = (patient.completedToday / patient.totalGoals) * 100
+        const completionRate = patient.totalGoals > 0 ? (patient.completedToday / patient.totalGoals) * 100 : 0
         if (progressFilter === "high") matchesProgress = completionRate >= 80
         if (progressFilter === "medium") matchesProgress = completionRate >= 50 && completionRate < 80
         if (progressFilter === "low") matchesProgress = completionRate < 50
       }
       
-      return matchesSearch && matchesAge && matchesProgress
+      return matchesSearch && matchesProgress
     })
+  }
+
+  const handleArchivePatient = (patientId: string) => {
+    // Pour l'instant, juste un console.log. En vrai, sauvegarder les données.
+    console.log('Patient archivé:', patientId)
+  }
+
+  const handleReactivatePatient = (patientId: string) => {
+    // Pour l'instant, juste un console.log. En vrai, sauvegarder les données.
+    console.log('Patient réactivé:', patientId)
   }
 
   const filteredPatients = getFilteredPatients()
@@ -141,8 +184,34 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
       <main className="py-8">
         <ResponsiveContainer>
         <div className="mb-8">
-          <ResponsiveHeading>Tableau de bord des patients</ResponsiveHeading>
-          <p className="text-gray-600">Suivez les progrès et gérez les objectifs de vos patients</p>
+          {/* Layout responsive : côte à côte sur desktop, empilé sur mobile */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <ResponsiveHeading>Tableau de bord des patients</ResponsiveHeading>
+              <p className="text-gray-600 text-sm sm:text-base">Suivez les progrès et gérez les objectifs de vos patients</p>
+            </div>
+            
+            {/* Toggle Actifs/Archivés */}
+            <div className="flex items-center justify-center sm:justify-end">
+              <Button
+                variant={viewMode === 'active' ? 'secondary' : 'outline'}
+                onClick={() => setViewMode(viewMode === 'active' ? 'archived' : 'active')}
+                className="flex items-center space-x-2 w-full sm:w-auto justify-center"
+              >
+                {viewMode === 'active' ? (
+                  <>
+                    <Archive className="w-4 h-4" />
+                    <span>Archivés ({archivedPatients.length})</span>
+                  </>
+                ) : (
+                  <>
+                    <Users className="w-4 h-4" />
+                    <span>Actifs ({activePatients.length})</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -158,14 +227,16 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <div className="flex items-center">
                   <Users className="w-8 h-8 text-blue-600" />
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Patients</p>
+                    <p className="text-sm font-medium text-gray-600">
+                      {viewMode === 'active' ? 'Patients Actifs' : 'Patients Archivés'}
+                    </p>
                     <motion.p 
                       className="text-2xl font-bold text-gray-800"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.3, type: "spring" }}
                     >
-                      {patients.length}
+                      {currentPatients.length}
                     </motion.p>
                   </div>
                 </div>
@@ -230,23 +301,13 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Input 
-                placeholder="Rechercher des patients par nom..." 
+                placeholder={`Rechercher des patients ${viewMode === 'active' ? 'actifs' : 'archivés'} par nom...`}
                 className="w-full"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="flex gap-2">
-              <select 
-                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={ageFilter}
-                onChange={(e) => setAgeFilter(e.target.value)}
-              >
-                <option value="">Tous les âges</option>
-                <option value="5-10">5-10 ans</option>
-                <option value="11-15">11-15 ans</option>
-                <option value="16-20">16-20 ans</option>
-              </select>
               <select 
                 className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 value={progressFilter}
@@ -328,6 +389,26 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                           >
                             Ajouter Objectif
                           </Button>
+                          {/* Bouton Archiver/Réactiver */}
+                          {viewMode === 'active' ? (
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                              onClick={() => handleArchivePatient(patient.id)}
+                            >
+                              Archiver
+                            </Button>
+                          ) : (
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              className="text-green-600 border-green-600 hover:bg-green-50"
+                              onClick={() => handleReactivatePatient(patient.id)}
+                            >
+                              Réactiver
+                            </Button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -342,7 +423,10 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <PatientCard 
                   key={patient.id} 
                   patient={patient} 
-                  onNavigate={onNavigate} 
+                  onNavigate={onNavigate}
+                  onArchive={handleArchivePatient}
+                  onReactivate={handleReactivatePatient}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
