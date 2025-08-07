@@ -183,20 +183,19 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
       {/* Main Content */}
       <main className="py-8">
         <ResponsiveContainer>
-        <div className="mb-8">
-          {/* Layout responsive : côte à côte sur desktop, empilé sur mobile */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="mb-6 sm:mb-8">
+          {/* Version desktop - layout traditionnel */}
+          <div className="hidden sm:flex sm:items-center sm:justify-between">
             <div className="flex-1 min-w-0">
               <ResponsiveHeading>Tableau de bord des patients</ResponsiveHeading>
-              <p className="text-gray-600 text-sm sm:text-base">Suivez les progrès et gérez les objectifs de vos patients</p>
+              <p className="text-gray-600">Suivez les progrès et gérez les objectifs de vos patients</p>
             </div>
             
-            {/* Toggle Actifs/Archivés */}
-            <div className="flex items-center justify-center sm:justify-end">
+            <div className="flex items-center justify-end">
               <Button
                 variant={viewMode === 'active' ? 'secondary' : 'outline'}
                 onClick={() => setViewMode(viewMode === 'active' ? 'archived' : 'active')}
-                className="flex items-center space-x-2 w-full sm:w-auto justify-center"
+                className="flex items-center space-x-2"
               >
                 {viewMode === 'active' ? (
                   <>
@@ -212,10 +211,65 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
               </Button>
             </div>
           </div>
+
+          {/* Version mobile - layout compact avec stats intégrées */}
+          <div className="sm:hidden">
+            <div className="text-center mb-4">
+              <h1 className="text-xl font-bold text-gray-900">Tableau de bord</h1>
+            </div>
+            
+            {/* Card compacte avec stats et toggle */}
+            <Card className="p-4">
+              <div className="space-y-4">
+                {/* Stats compactes */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-gray-900">{currentPatients.length}</div>
+                      <div className="text-xs text-gray-600">
+                        {viewMode === 'active' ? 'Actifs' : 'Archivés'}
+                      </div>
+                    </div>
+                    {viewMode === 'active' && (
+                      <>
+                        <div className="w-px h-8 bg-gray-200"></div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">
+                            {activePatients.reduce((sum, p) => sum + p.totalGoals, 0)}
+                          </div>
+                          <div className="text-xs text-gray-600">Objectifs</div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  
+                  {/* Toggle button */}
+                  <Button
+                    variant={viewMode === 'active' ? 'secondary' : 'outline'}
+                    onClick={() => setViewMode(viewMode === 'active' ? 'archived' : 'active')}
+                    size="sm"
+                    className="flex items-center space-x-1.5"
+                  >
+                    {viewMode === 'active' ? (
+                      <>
+                        <Archive className="w-4 h-4" />
+                        <span>Archivés ({archivedPatients.length})</span>
+                      </>
+                    ) : (
+                      <>
+                        <Users className="w-4 h-4" />
+                        <span>Actifs ({activePatients.length})</span>
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="mb-8">
+        {/* Stats Cards - Desktop seulement */}
+        <div className="mb-8 hidden sm:block">
           <ResponsiveGrid>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
