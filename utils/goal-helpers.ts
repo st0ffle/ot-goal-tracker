@@ -118,3 +118,110 @@ export function calculatePatientGoalStats(patientId: string, goals: Goal[]) {
       : 0
   }
 }
+
+// Interfaces pour le progrès hebdomadaire
+export interface DayProgress {
+  date: string                    // '2024-01-15'
+  dayName: string                 // 'Lundi'
+  completedGoals: string[]        // IDs des objectifs complétés
+  totalGoals: number              // Nombre total d'objectifs ce jour
+  pointsEarned: number            // Points gagnés
+  pointsPossible: number          // Points possibles
+  completionRate: number          // Pourcentage 0-100
+}
+
+export interface WeekProgress {
+  weekStart: string               // '2024-01-15'
+  weekEnd: string                 // '2024-01-21'
+  days: DayProgress[]             // 7 jours
+  totalPoints: number             // Somme semaine
+  averageCompletion: number       // Moyenne %
+  bestDay: DayProgress | null     // Meilleur jour
+}
+
+// Fonction pour calculer le progrès d'une semaine
+export function calculateWeekProgress(
+  goals: Goal[], 
+  weekStart: Date = new Date()
+): WeekProgress {
+  // Pour la maquette, on génère des données mock
+  // En vrai, on filtrerait par completedAt dans la semaine
+  
+  const days: DayProgress[] = []
+  const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+  
+  // Obtenir le lundi de la semaine
+  const monday = new Date(weekStart)
+  const day = monday.getDay()
+  const diff = monday.getDate() - day + (day === 0 ? -6 : 1)
+  monday.setDate(diff)
+  
+  // Générer 7 jours de données mock
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(monday)
+    date.setDate(date.getDate() + i)
+    
+    // Mock data réaliste avec variation
+    const scenarios = [
+      { completed: 4, total: 5 }, // Très bon jour
+      { completed: 2, total: 4 }, // Jour moyen
+      { completed: 5, total: 5 }, // Jour parfait
+      { completed: 3, total: 3 }, // Petit jour parfait
+      { completed: 0, total: 2 }, // Mauvais jour
+      { completed: 1, total: 3 }, // Jour difficile
+      { completed: 2, total: 5 }, // Jour partiel
+    ]
+    
+    const scenario = scenarios[i % scenarios.length]
+    const points = scenario.completed * 10
+    
+    days.push({
+      date: date.toISOString().split('T')[0],
+      dayName: dayNames[i],
+      completedGoals: [], // Pour la maquette, vide
+      totalGoals: scenario.total,
+      pointsEarned: points,
+      pointsPossible: scenario.total * 10,
+      completionRate: scenario.total > 0 
+        ? Math.round((scenario.completed / scenario.total) * 100) 
+        : 0
+    })
+  }
+  
+  const totalPoints = days.reduce((sum, d) => sum + d.pointsEarned, 0)
+  const averageCompletion = Math.round(
+    days.reduce((sum, d) => sum + d.completionRate, 0) / 7
+  )
+  const bestDay = days.reduce((best, day) => 
+    day.completionRate > (best?.completionRate || 0) ? day : best
+  , days[0])
+  
+  return {
+    weekStart: monday.toISOString().split('T')[0],
+    weekEnd: new Date(monday.getTime() + 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    days,
+    totalPoints,
+    averageCompletion,
+    bestDay
+  }
+}
+
+// Fonction pour obtenir la couleur selon le taux
+export function getCompletionColor(rate: number): string {
+  if (rate === 100) return 'bg-green-500'      // 🟩 Parfait
+  if (rate >= 75) return 'bg-green-400'        // 🟢 Très bien
+  if (rate >= 50) return 'bg-yellow-400'       // 🟨 Bien
+  if (rate >= 25) return 'bg-orange-400'       // 🟧 Moyen
+  if (rate > 0) return 'bg-orange-500'         // 🟠 Faible
+  return 'bg-red-500'                          // 🟥 Aucun
+}
+
+// Fonction pour l'emoji selon le taux
+export function getCompletionEmoji(rate: number): string {
+  if (rate === 100) return '🎉'
+  if (rate >= 75) return '✅'
+  if (rate >= 50) return '👍'
+  if (rate >= 25) return '⚠️'
+  if (rate > 0) return '🔻'
+  return '❌'
+}
