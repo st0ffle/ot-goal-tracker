@@ -1,30 +1,48 @@
 "use client"
 
-import { Home, Users, Target, Plus } from 'lucide-react'
+import { Users, Plus, FileText, Calendar } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface BottomNavigationProps {
+interface TherapistBottomNavigationProps {
   currentView: string
   onNavigate: (view: string) => void
   className?: string
 }
 
-export function BottomNavigation({ currentView, onNavigate, className }: BottomNavigationProps) {
+export function TherapistBottomNavigation({ currentView, onNavigate, className }: TherapistBottomNavigationProps) {
+  /* 
+   * TODO: When implementing real authentication system:
+   * - Connect this to actual user permissions
+   * - Add role-based access control (RBAC)
+   * - Implement user session management
+   * - Add logout functionality
+   * - Consider user preferences for navigation customization
+   */
+  
   const navItems = [
     {
       id: 'therapist-dashboard',
-      label: 'Patients', // FIX: Dashboard = Patients (plus logique)
+      label: 'Patients',
       icon: Users,
+      description: 'Gérer mes patients'
     },
     {
-      id: 'patient-goals',
-      label: 'Objectifs',
-      icon: Target,
+      id: 'calendar', // TODO: Create calendar view when implementing scheduling
+      label: 'Agenda',
+      icon: Calendar,
+      description: 'Planning et rendez-vous'
     },
     {
       id: 'create-goal',
       label: 'Créer',
       icon: Plus,
+      description: 'Nouvel objectif thérapeutique'
+    },
+    {
+      id: 'reports', // TODO: Create reports view for therapist analytics
+      label: 'Rapports',
+      icon: FileText,
+      description: 'Statistiques et rapports'
     },
   ]
 
@@ -33,7 +51,7 @@ export function BottomNavigation({ currentView, onNavigate, className }: BottomN
       "fixed bottom-0 left-0 right-0 z-50",
       "bg-white border-t border-gray-200",
       "safe-area-inset-bottom", // iOS safe area
-      "md:hidden", // Masquer sur desktop
+      "md:hidden", // Hide on desktop
       className
     )}>
       <div className="flex">
@@ -49,11 +67,12 @@ export function BottomNavigation({ currentView, onNavigate, className }: BottomN
                 "flex-1 flex flex-col items-center justify-center",
                 "py-3 px-1 min-h-[60px]", // Touch target minimum 60px
                 "text-xs font-medium transition-colors",
-                "active:bg-gray-100", // Feedback tactile
+                "active:bg-gray-100", // Touch feedback
                 isActive 
                   ? "text-blue-600 bg-blue-50" 
                   : "text-gray-500 hover:text-gray-900"
               )}
+              aria-label={item.description}
             >
               <Icon 
                 className={cn(

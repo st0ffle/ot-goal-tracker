@@ -9,7 +9,8 @@ import {
 } from './views'
 import { mockPatients, mockGoals, mockPatientGoals } from '@/lib/mock-data'
 import { ViewTransition } from './view-transition'
-import { BottomNavigation } from './bottom-navigation'
+import { TherapistBottomNavigation } from './therapist-bottom-navigation'
+import { PatientBottomNavigation } from './patient-bottom-navigation'
 
 interface AppShellProps {
   view: string
@@ -18,6 +19,24 @@ interface AppShellProps {
 }
 
 export function AppShell({ view, selectedPatient, onNavigate }: AppShellProps) {
+  /*
+   * TODO: Replace with real authentication system
+   * - Get user type from authentication context/token
+   * - Implement proper session management
+   * - Add role-based access control
+   * - Handle user permissions and restrictions
+   * - Add user switching capabilities for testing
+   */
+  
+  // TEMPORARY: Determine user type based on current view
+  // In real app, this would come from authentication context
+  const getUserType = (): 'therapist' | 'patient' => {
+    if (view === 'patient-goals') return 'patient'
+    return 'therapist' // Default to therapist for demo
+  }
+  
+  const userType = getUserType()
+
   // Navigation handler avec gestion du state
   const handleNavigate = (newView: string, data?: any) => {
     onNavigate(newView, data)
@@ -74,10 +93,19 @@ export function AppShell({ view, selectedPatient, onNavigate }: AppShellProps) {
         {renderView()}
       </ViewTransition>
       {view !== 'login' && (
-        <BottomNavigation 
-          currentView={view} 
-          onNavigate={handleNavigate} 
-        />
+        <>
+          {userType === 'therapist' ? (
+            <TherapistBottomNavigation 
+              currentView={view} 
+              onNavigate={handleNavigate} 
+            />
+          ) : (
+            <PatientBottomNavigation 
+              currentView={view} 
+              onNavigate={handleNavigate} 
+            />
+          )}
+        </>
       )}
     </div>
   )

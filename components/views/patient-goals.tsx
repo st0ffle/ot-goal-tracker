@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Award, CheckCircle, Circle, Calendar, Target } from 'lucide-react'
+import { ResponsiveContainer, ResponsiveHeading, ResponsiveStack } from '@/components/responsive-patterns'
 
 interface Goal {
   id: string
@@ -27,14 +28,14 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       {/* Header */}
       <header className="bg-white shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+        <ResponsiveContainer>
+          <ResponsiveStack>
             <div className="flex items-center">
               <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                 <Target className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-lg font-semibold text-gray-800">Mes Objectifs</h1>
+                <ResponsiveHeading>Mes Objectifs</ResponsiveHeading>
                 <p className="text-sm text-gray-600">Tâches du jour</p>
               </div>
             </div>
@@ -45,12 +46,12 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
               </div>
               <p className="text-xs text-gray-600">Points Totaux</p>
             </div>
-          </div>
-        </div>
+          </ResponsiveStack>
+        </ResponsiveContainer>
       </header>
 
       {/* Progress Summary */}
-      <div className="max-w-md mx-auto px-4 py-6">
+      <ResponsiveContainer>
         <Card className="mb-6">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
@@ -126,7 +127,7 @@ export function PatientGoals({ goals, onNavigate }: PatientGoalsProps) {
             Déconnexion
           </Button>
         </div>
-      </div>
+      </ResponsiveContainer>
     </div>
   )
 }

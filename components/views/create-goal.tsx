@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ResponsiveContainer, ResponsiveHeading } from '@/components/responsive-patterns'
 
 interface Patient {
   id: string
@@ -20,7 +21,7 @@ export function CreateGoal({ patients, onNavigate }: CreateGoalProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ResponsiveContainer>
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Button 
@@ -32,16 +33,17 @@ export function CreateGoal({ patients, onNavigate }: CreateGoalProps) {
                 <span className="hidden sm:inline">← Retour</span>
                 <span className="sm:hidden">←</span>
               </Button>
-              <h1 className="text-lg md:text-xl font-semibold text-gray-800">
+              <ResponsiveHeading>
                 <span className="hidden sm:inline">Créer un Nouvel Objectif</span>
                 <span className="sm:hidden">Nouvel Objectif</span>
-              </h1>
+              </ResponsiveHeading>
             </div>
           </div>
-        </div>
+        </ResponsiveContainer>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="py-8">
+        <ResponsiveContainer>
         <Card>
           <CardHeader>
             <CardTitle>Détails de l'Objectif</CardTitle>
@@ -119,6 +121,7 @@ export function CreateGoal({ patients, onNavigate }: CreateGoalProps) {
             </div>
           </CardContent>
         </Card>
+        </ResponsiveContainer>
       </main>
     </div>
   )

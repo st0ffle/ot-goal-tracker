@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Plus, Award, Target, CheckCircle, Calendar, Settings } from 'lucide-react'
-import { ResponsiveGrid } from '@/components/responsive-patterns'
+import { ResponsiveGrid, ResponsiveStack } from '@/components/responsive-patterns'
 
 interface Patient {
   id: string
@@ -64,7 +64,7 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
         {/* Patient Info Card */}
         <Card className="mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <ResponsiveStack>
               <div>
                 <CardTitle className="text-2xl">{patient.name}</CardTitle>
                 <CardDescription>Âge {patient.age} • ID Patient: {patient.id}</CardDescription>
@@ -76,7 +76,7 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
                 </div>
                 <p className="text-sm text-gray-600">Points Totaux</p>
               </div>
-            </div>
+            </ResponsiveStack>
           </CardHeader>
           <CardContent>
             <ResponsiveGrid>
