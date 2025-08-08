@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -23,23 +25,22 @@ interface Patient {
 
 interface TherapistDashboardProps {
   patients: Patient[]
-  onNavigate: (view: string, patientId?: string) => void
+  goals?: any[] // Add goals prop for compatibility
 }
 
 // Component for mobile patient cards
 function PatientCard({ 
   patient, 
-  onNavigate, 
   onArchive, 
   onReactivate, 
   viewMode 
 }: { 
-  patient: Patient, 
-  onNavigate: (view: string, patientId?: string) => void,
+  patient: Patient,
   onArchive: (patientId: string) => void,
   onReactivate: (patientId: string) => void,
   viewMode: 'active' | 'archived'
 }) {
+  const router = useRouter()
   return (
     <Card className="p-4">
       <div className="flex items-start justify-between">
@@ -69,19 +70,15 @@ function PatientCard({
                 {patient.points} pts
               </Badge>
               <div className="flex space-x-2">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => onNavigate("patient-detail", patient.id)}
-                >
-                  Voir
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`/patient/${patient.id}`} prefetch={true}>
+                    Voir
+                  </Link>
                 </Button>
-                <Button 
-                  size="sm" 
-                  className="bg-green-600 hover:bg-green-700"
-                  onClick={() => onNavigate("create-goal")}
-                >
-                  <Plus className="w-4 h-4" />
+                <Button size="sm" className="bg-green-600 hover:bg-green-700" asChild>
+                  <Link href={`/patient/create-goal?patientId=${patient.id}`} prefetch={true}>
+                    <Plus className="w-4 h-4" />
+                  </Link>
                 </Button>
                 {/* Bouton Archiver/Réactiver mobile */}
                 {viewMode === 'active' ? (
@@ -112,7 +109,8 @@ function PatientCard({
   )
 }
 
-export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardProps) {
+export function TherapistDashboard({ patients, goals }: TherapistDashboardProps) {
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("")
   const [progressFilter, setProgressFilter] = useState("")
   const [viewMode, setViewMode] = useState<'active' | 'archived'>('active')
@@ -164,13 +162,11 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
               <h1 className="text-xl font-semibold text-gray-800">OT Goal Tracker</h1>
             </div>
             <div className="flex items-center space-x-2">
-              <Button 
-                onClick={() => onNavigate("create-goal")}
-                className="bg-blue-600 hover:bg-blue-700"
-                size="sm"
-              >
-                <Plus className="w-4 h-4 md:mr-2" />
-                <span className="hidden md:inline">Nouvel Objectif</span>
+              <Button className="bg-blue-600 hover:bg-blue-700" size="sm" asChild>
+                <Link href="/patient/create-goal" prefetch={true}>
+                  <Plus className="w-4 h-4 md:mr-2" />
+                  <span className="hidden md:inline">Nouvel Objectif</span>
+                </Link>
               </Button>
               <Button variant="ghost" size="sm" aria-label="Paramètres">
                 <Settings className="w-4 h-4" />
@@ -429,19 +425,15 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                       </td>
                       <td className="p-4">
                         <div className="flex space-x-2">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => onNavigate("patient-detail", patient.id)}
-                          >
-                            Voir
+                          <Button variant="outline" size="sm" asChild>
+                            <Link href={`/patient/${patient.id}`} prefetch={true}>
+                              Voir
+                            </Link>
                           </Button>
-                          <Button 
-                            size="sm" 
-                            className="bg-green-600 hover:bg-green-700"
-                            onClick={() => onNavigate("create-goal")}
-                          >
-                            Ajouter Objectif
+                          <Button size="sm" className="bg-green-600 hover:bg-green-700" asChild>
+                            <Link href={`/patient/create-goal?patientId=${patient.id}`} prefetch={true}>
+                              Ajouter Objectif
+                            </Link>
                           </Button>
                           {/* Bouton Archiver/Réactiver */}
                           {viewMode === 'active' ? (
@@ -477,7 +469,6 @@ export function TherapistDashboard({ patients, onNavigate }: TherapistDashboardP
                 <PatientCard 
                   key={patient.id} 
                   patient={patient} 
-                  onNavigate={onNavigate}
                   onArchive={handleArchivePatient}
                   onReactivate={handleReactivatePatient}
                   viewMode={viewMode}

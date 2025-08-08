@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -22,14 +24,15 @@ interface Patient {
 
 interface CreateGoalProps {
   patients: Patient[]
-  goals: Goal[]  // Ajout pour avoir accès aux objectifs existants
-  onNavigate: (view: string) => void
+  goals: Goal[]  // Les objectifs existants
+  initialPatientId?: string  // Patient pré-sélectionné depuis l'URL
 }
 
-export function CreateGoal({ patients, goals, onNavigate }: CreateGoalProps) {
+export function CreateGoal({ patients, goals, initialPatientId }: CreateGoalProps) {
+  const router = useRouter()
   const [goalType, setGoalType] = useState<'primary' | 'secondary'>('primary')
   const [selectedParentId, setSelectedParentId] = useState<string>('')
-  const [selectedPatientId, setSelectedPatientId] = useState<string>('')
+  const [selectedPatientId, setSelectedPatientId] = useState<string>(initialPatientId || '')
   const [goalText, setGoalText] = useState<string>('')
   const [points, setPoints] = useState<string>('10')
   
@@ -45,7 +48,7 @@ export function CreateGoal({ patients, goals, onNavigate }: CreateGoalProps) {
             <div className="flex items-center">
               <Button 
                 variant="ghost" 
-                onClick={() => onNavigate("therapist-dashboard")}
+                onClick={() => router.push('/therapist')}
                 className="mr-2 md:mr-4"
                 size="sm"
               >
@@ -193,12 +196,10 @@ export function CreateGoal({ patients, goals, onNavigate }: CreateGoalProps) {
             )}
 
             <div className="flex space-x-4 pt-6">
-              <Button 
-                variant="outline" 
-                className="flex-1"
-                onClick={() => onNavigate("therapist-dashboard")}
-              >
-                Annuler
+              <Button variant="outline" className="flex-1" asChild>
+                <Link href="/therapist" prefetch={true}>
+                  Annuler
+                </Link>
               </Button>
               <Button 
                 className="flex-1 bg-blue-600 hover:bg-blue-700"
@@ -211,7 +212,7 @@ export function CreateGoal({ patients, goals, onNavigate }: CreateGoalProps) {
                     goalText,
                     points: goalType === 'secondary' ? points : 0
                   })
-                  onNavigate("therapist-dashboard")
+                  router.push('/therapist')
                 }}
               >
                 Créer l'Objectif

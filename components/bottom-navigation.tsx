@@ -1,72 +1,40 @@
-"use client"
+"use client" // Gardé car pathname dynamique
 
-import { Home, Users, Target, Plus } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Home, Users, Target, Award, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface BottomNavigationProps {
-  currentView: string
-  onNavigate: (view: string) => void
-  className?: string
-}
-
-export function BottomNavigation({ currentView, onNavigate, className }: BottomNavigationProps) {
+export function BottomNavigation() {
+  const pathname = usePathname()
+  
   const navItems = [
-    {
-      id: 'therapist-dashboard',
-      label: 'Patients', // FIX: Dashboard = Patients (plus logique)
-      icon: Users,
-    },
-    {
-      id: 'patient-goals',
-      label: 'Objectifs',
-      icon: Target,
-    },
-    {
-      id: 'create-goal',
-      label: 'Créer',
-      icon: Plus,
-    },
+    { href: '/therapist', icon: Home, label: 'Accueil' },
+    { href: '/patients', icon: Users, label: 'Patients' },
+    { href: '/goals', icon: Target, label: 'Objectifs' },
+    { href: '/rewards', icon: Award, label: 'Récompenses' },
+    { href: '/profile', icon: User, label: 'Profil' },
   ]
-
+  
   return (
-    <nav className={cn(
-      "fixed bottom-0 left-0 right-0 z-50",
-      "bg-white border-t border-gray-200",
-      "safe-area-inset-bottom", // iOS safe area
-      "md:hidden", // Masquer sur desktop
-      className
-    )}>
-      <div className="flex">
+    <nav className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t">
+      <div className="flex justify-around">
         {navItems.map((item) => {
+          const isActive = pathname === item.href
           const Icon = item.icon
-          const isActive = currentView === item.id
           
           return (
-            <button
-              key={item.id}
-              onClick={() => onNavigate(item.id)}
+            <Link
+              key={item.href}
+              href={item.href}
               className={cn(
-                "flex-1 flex flex-col items-center justify-center",
-                "py-3 px-1 min-h-[60px]", // Touch target minimum 60px
-                "text-xs font-medium transition-colors",
-                "active:bg-gray-100", // Feedback tactile
-                isActive 
-                  ? "text-blue-600 bg-blue-50" 
-                  : "text-gray-500 hover:text-gray-900"
+                "flex flex-col items-center py-2 px-3",
+                isActive ? "text-blue-600" : "text-gray-600"
               )}
             >
-              <Icon 
-                className={cn(
-                  "w-6 h-6 mb-1",
-                  isActive ? "text-blue-600" : "text-gray-400"
-                )} 
-              />
-              <span className={cn(
-                isActive ? "text-blue-600" : "text-gray-500"
-              )}>
-                {item.label}
-              </span>
-            </button>
+              <Icon className="w-6 h-6" />
+              <span className="text-xs mt-1">{item.label}</span>
+            </Link>
           )
         })}
       </div>

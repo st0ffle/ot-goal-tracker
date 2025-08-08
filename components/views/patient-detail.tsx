@@ -1,5 +1,7 @@
 "use client"
 
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -33,10 +35,10 @@ interface Patient {
 interface PatientDetailProps {
   patient: Patient
   goals: Goal[]  // Maintenant typé avec la nouvelle structure
-  onNavigate: (view: string) => void
 }
 
-export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps) {
+export function PatientDetail({ patient, goals }: PatientDetailProps) {
+  const router = useRouter()
   const [expandedGoals, setExpandedGoals] = useState<Set<string>>(new Set())
   const [selectedWeek, setSelectedWeek] = useState(new Date())
   const [selectedDay, setSelectedDay] = useState<DayProgress | null>(null)
@@ -74,26 +76,21 @@ export function PatientDetail({ patient, goals, onNavigate }: PatientDetailProps
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center min-w-0 flex-1">
-              <Button 
-                variant="ghost" 
-                onClick={() => onNavigate("therapist-dashboard")}
-                className="mr-2 md:mr-4 flex-shrink-0"
-                size="sm"
-              >
-                <span className="hidden sm:inline">← Retour</span>
-                <span className="sm:hidden">←</span>
+              <Button variant="ghost" className="mr-2 md:mr-4 flex-shrink-0" size="sm" asChild>
+                <Link href="/therapist" prefetch={true}>
+                  <span className="hidden sm:inline">← Retour</span>
+                  <span className="sm:hidden">←</span>
+                </Link>
               </Button>
               <h1 className="text-lg md:text-xl font-semibold text-gray-800 truncate">
                 {patient.name} <span className="hidden sm:inline">- Détails</span>
               </h1>
             </div>
-            <Button 
-              onClick={() => onNavigate("create-goal")}
-              className="bg-blue-600 hover:bg-blue-700 flex-shrink-0"
-              size="sm"
-            >
-              <Plus className="w-4 h-4 md:mr-2" />
-              <span className="hidden md:inline">Ajouter Objectif</span>
+            <Button className="bg-blue-600 hover:bg-blue-700 flex-shrink-0" size="sm" asChild>
+              <Link href={`/patient/create-goal?patientId=${patient.id}`} prefetch={true}>
+                <Plus className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">Ajouter Objectif</span>
+              </Link>
             </Button>
           </div>
         </div>

@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -8,11 +10,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Target, User } from 'lucide-react'
 import { motion } from 'framer-motion'
 
-interface LoginViewProps {
-  onNavigate: (view: string, userType?: "therapist" | "patient") => void
-}
-
-export function LoginView({ onNavigate }: LoginViewProps) {
+export function LoginView() {
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
       <motion.div
@@ -42,29 +43,54 @@ export function LoginView({ onNavigate }: LoginViewProps) {
             </TabsList>
             
             <TabsContent value="login" className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="Entrez votre email" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Mot de passe</Label>
-                <Input id="password" type="password" placeholder="Entrez votre mot de passe" />
-              </div>
-              <div className="space-y-2">
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700" 
-                  onClick={() => onNavigate("therapist-dashboard", "therapist")}
-                >
-                  Connexion Ergothérapeute
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={() => onNavigate("patient-goals", "patient")}
-                >
-                  Connexion Patient
-                </Button>
-              </div>
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                // Validation simple pour maquette
+                if (email && password) {
+                  router.push('/therapist')
+                }
+              }}>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="Entrez votre email" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Mot de passe</Label>
+                    <Input 
+                      id="password" 
+                      type="password" 
+                      placeholder="Entrez votre mot de passe" 
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Button 
+                      type="submit"
+                      className="w-full bg-blue-600 hover:bg-blue-700" 
+                    >
+                      Connexion Ergothérapeute
+                    </Button>
+                    <Button 
+                      type="button"
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => router.push('/patient')}
+                    >
+                      Connexion Patient
+                    </Button>
+                  </div>
+                </div>
+              </form>
             </TabsContent>
             
             <TabsContent value="register" className="space-y-4">

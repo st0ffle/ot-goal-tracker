@@ -206,26 +206,27 @@ export default async function PatientDetailPage({
 // components/views/login-view.tsx - MODIFICATIONS
 "use client" // Gardé car formulaire interactif
 
-import { useRouter } from 'next/navigation' // ← CHANGÉ
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export function LoginView() {
-  const router = useRouter() // ← NOUVEAU
+  const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Validation simple pour maquette
     if (email && password) {
-      // Navigation Next.js au lieu de onNavigate
-      router.push('/therapist') // ← CHANGÉ
+      // ⚠️ IMPORTANT: Utiliser router.push ICI car c'est un formulaire
+      // On ne peut pas utiliser Link dans un onSubmit
+      router.push('/therapist')
     }
   }
   
-  // Reste du composant identique mais:
-  // - Supprimer toute référence à onNavigate prop
-  // - Utiliser router.push() pour naviguer
+  // Pour les boutons simples, utiliser Link avec asChild:
+  // <Button asChild>
+  //   <Link href="/patient">Connexion Patient</Link>
+  // </Button>
 }
 ```
 **Pourquoi :** Navigation avec Next.js router au lieu de state  
@@ -234,12 +235,13 @@ export function LoginView() {
 
 ---
 
-### ✅ 8. Mise à jour TherapistDashboard (navigation)
+### ✅ 8. Mise à jour TherapistDashboard (navigation OPTIMISÉE)
 ```tsx
 // components/views/therapist-dashboard.tsx - MODIFICATIONS
 "use client" // Gardé car recherche/filtres interactifs
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 interface TherapistDashboardProps {
   patients: Patient[]
@@ -248,23 +250,22 @@ interface TherapistDashboardProps {
 }
 
 export function TherapistDashboard({ patients, goals }: TherapistDashboardProps) {
-  const router = useRouter() // ← NOUVEAU
-  
-  // Au lieu de onNavigate("patient-detail", patient.id):
-  const handleViewPatient = (patientId: string) => {
-    router.push(`/patient/${patientId}`)
-  }
-  
-  const handleCreateGoal = (patientId?: string) => {
-    if (patientId) {
-      router.push(`/patient/create-goal?patientId=${patientId}`)
-    } else {
-      router.push('/patient/create-goal')
-    }
-  }
-  
-  // Remplacer tous les onNavigate par router.push
-  // ...reste du composant
+  // ✅ CORRECT: Utiliser Link pour navigation instantanée
+  return (
+    // Au lieu de onClick avec router.push:
+    <Button asChild>
+      <Link href={`/patient/${patient.id}`} prefetch={true}>
+        Voir
+      </Link>
+    </Button>
+    
+    // Pareil pour créer objectif:
+    <Button asChild className="bg-green-600">
+      <Link href={`/patient/create-goal?patientId=${patient.id}`} prefetch={true}>
+        Ajouter Objectif
+      </Link>
+    </Button>
+  )
 }
 ```
 **Pourquoi :** Navigation déclarative avec URLs réelles  
@@ -332,6 +333,7 @@ export function BottomNavigation() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={true}  // ← AJOUTÉ pour navigation instantanée
               className={cn(
                 "flex flex-col items-center py-2 px-3",
                 isActive ? "text-blue-600" : "text-gray-600"
@@ -631,6 +633,8 @@ ANALYZE=true npm run build
 6. **Params en Next.js 15:** Toujours `await` les params et searchParams dans les composants
 7. **Types Metadata:** Importer `type { Metadata }` de 'next' pour les metadata
 8. **generateStaticParams:** Toujours en async même pour mock data
+9. **⚠️ NAVIGATION OPTIMISÉE:** Utiliser `<Link>` avec `asChild` sur Button, pas `router.push`
+10. **PREFETCH:** Ajouter `prefetch={true}` sur les liens importants
 
 ---
 
@@ -642,6 +646,7 @@ ANALYZE=true npm run build
 - ✅ First Load JS < 100kb (actuellement ~200kb)
 - ✅ Build time < 10s
 - ✅ 100% des routes avec vraies URLs
+- ✅ Navigation instantanée avec Link + prefetch
 
 ### Qualitatives:
 - ✅ Navigation instantanée (perception)
