@@ -84,9 +84,9 @@ export function LoginView() {
                       type="button"
                       variant="outline" 
                       className="w-full"
-                      onClick={() => router.push('/patient')}
+                      onClick={() => router.push('/patient/1')}
                     >
-                      Connexion Patient
+                      Connexion Patient (Emma)
                     </Button>
                   </div>
                 </div>

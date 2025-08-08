@@ -2,18 +2,22 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Users, Target, Award, User } from 'lucide-react'
+import { Users, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function BottomNavigation() {
   const pathname = usePathname()
   
+  // Ne pas afficher la navigation sur les pages patient
+  const isPatientView = pathname.startsWith('/patient/') && !pathname.includes('create-goal')
+  if (isPatientView) {
+    return null
+  }
+  
+  // Navigation pour ergothérapeute uniquement
   const navItems = [
-    { href: '/therapist', icon: Home, label: 'Accueil' },
-    { href: '/patients', icon: Users, label: 'Patients' },
-    { href: '/goals', icon: Target, label: 'Objectifs' },
-    { href: '/rewards', icon: Award, label: 'Récompenses' },
-    { href: '/profile', icon: User, label: 'Profil' },
+    { href: '/therapist', icon: Users, label: 'Patients' },
+    { href: '/patient/create-goal', icon: Plus, label: 'Créer' },
   ]
   
   return (
@@ -28,8 +32,10 @@ export function BottomNavigation() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center py-2 px-3",
-                isActive ? "text-blue-600" : "text-gray-600"
+                "flex flex-col items-center py-2 px-3 flex-1",
+                isActive || (item.href.includes('#') && pathname.includes(item.href.split('#')[0]))
+                  ? "text-blue-600" 
+                  : "text-gray-600"
               )}
             >
               <Icon className="w-6 h-6" />
