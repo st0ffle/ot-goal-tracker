@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Index
+
+@PROJECT_INDEX.json - Contains the complete architectural overview with function signatures, dependencies, and project structure. This index is automatically updated when files are modified.
+
 ## Project Overview
 
 OT Goal Tracker is a Next.js application for occupational therapy goal tracking. It helps therapists manage patients and track their therapy goals with a hierarchical goal system (primary and secondary goals).

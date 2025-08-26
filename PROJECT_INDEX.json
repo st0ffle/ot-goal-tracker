@@ -1,0 +1,2300 @@
+{
+  "indexed_at": "2025-08-26T19:48:30.092529",
+  "root": ".",
+  "project_structure": {
+    "type": "tree",
+    "root": ".",
+    "tree": [
+      ".",
+      "\u251c\u2500\u2500 app/ (10 files)",
+      "\u2502   \u251c\u2500\u2500 (auth)/ (1 files)",
+      "\u2502   \u2502   \u2514\u2500\u2500 login/ (1 files)",
+      "\u2502   \u251c\u2500\u2500 (dashboard)/ (5 files)",
+      "\u2502   \u2502   \u251c\u2500\u2500 patient/ (2 files)",
+      "\u2502   \u2502   \u2502   \u251c\u2500\u2500 [id]/ (1 files)",
+      "\u2502   \u2502   \u2502   \u2514\u2500\u2500 create-goal/ (1 files)",
+      "\u2502   \u2502   \u2514\u2500\u2500 therapist/ (1 files)",
+      "\u2502   \u2514\u2500\u2500 (shared)/",
+      "\u2502       \u2514\u2500\u2500 components/",
+      "\u251c\u2500\u2500 components/ (63 files)",
+      "\u2502   \u251c\u2500\u2500 client/ (2 files)",
+      "\u2502   \u251c\u2500\u2500 ui/ (48 files)",
+      "\u2502   \u2514\u2500\u2500 views/ (6 files)",
+      "\u251c\u2500\u2500 hooks/ (2 files)",
+      "\u251c\u2500\u2500 lib/ (2 files)",
+      "\u251c\u2500\u2500 public/",
+      "\u251c\u2500\u2500 specs/",
+      "\u251c\u2500\u2500 utils/ (1 files)",
+      "\u2514\u2500\u2500 package.json"
+    ]
+  },
+  "documentation_map": {
+    "comprehensive-audit-specification.md": {
+      "sections": [
+        "Comprehensive React/Next.js Audit Specialist AI - Technical Specification",
+        "Overview",
+        "Core Audit Categories",
+        "1. Technology Stack Audit",
+        "2. Next.js App Router Modernization Review",
+        "3. React Modernization Assessment"
+      ],
+      "architecture_hints": []
+    },
+    "CLAUDE.md": {
+      "sections": [
+        "CLAUDE.md",
+        "Project Index",
+        "Project Overview",
+        "Development Commands",
+        "Architecture",
+        "Tech Stack",
+        "Directory Structure",
+        "Key Architectural Patterns",
+        "Testing Approach",
+        "Routing Structure"
+      ],
+      "architecture_hints": [
+        "utils/goal-helpers.ts"
+      ]
+    },
+    "specs/MAQUETTE-PRIORITE-3.md": {
+      "sections": [
+        "\ud83d\udfe1 PRIORIT\u00c9 3 - Gestion Actifs/Archiv\u00e9s (1-2 jours)",
+        "\ud83c\udfaf Objectif Principal",
+        "\ud83d\udd04 Fonctionnalit\u00e9 : Patients Actifs vs Archiv\u00e9s",
+        "\u2705 1. Modification de l'interface Patient",
+        "\u2705 2. Mise \u00e0 jour des mock data",
+        "\u2705 3. Interface Toggle dans le Dashboard"
+      ],
+      "architecture_hints": []
+    },
+    "specs/MAQUETTE-PRIORITE-2.md": {
+      "sections": [
+        "\ud83d\udfe0 PRIORIT\u00c9 2 - Responsive & Navigation Mobile",
+        "\ud83d\udcf1 Responsive Design",
+        "\u2705 Mobile-first avec Tailwind patterns",
+        "\u2705 Barre de navigation en bas pour mobile",
+        "\ud83d\udccb Checklist Priorit\u00e9 2",
+        "\ud83d\udd27 \u00c9TAPE 1 : Patterns Responsive",
+        "\ud83d\udd27 \u00c9TAPE 2 : Navigation Mobile",
+        "\ud83d\udea8 \u00c9TAPE 3 : BONUS - Correction Scroll Horizontal"
+      ],
+      "architecture_hints": []
+    },
+    "specs/MAQUETTE-PRIORITE-6.md": {
+      "sections": [
+        "\ud83d\udd34 PRIORIT\u00c9 6 - Refactor Architecture Routing & Optimisation Client/Serveur (4-6 heures)",
+        "\ud83c\udfaf Objectif Principal",
+        "\ud83c\udfd7\ufe0f PARTIE 1 : Refactor Architecture Routing (2-3h)",
+        "\u2705 1. Cr\u00e9ation de la structure App Router",
+        "Structure actuelle (PROBL\u00c9MATIQUE)",
+        "Structure cible (MODERNE)",
+        "\u2705 2. Nouveau app/page.tsx (Redirect simple)",
+        "\u2705 3. Page Login autonome",
+        "\u2705 4. Dashboard Layout partag\u00e9",
+        "\u2705 5. Page Dashboard Th\u00e9rapeute"
+      ],
+      "architecture_hints": []
+    },
+    "specs/MAQUETTE-PRIORITE-1.md": {
+      "sections": [
+        "\ud83d\udd34 PRIORIT\u00c9 1 - Structure & Clart\u00e9 (1-2 jours)",
+        "\ud83d\udcc1 Organisation du Code",
+        "\u2705 D\u00e9couper le fichier monolithique (861 lignes)",
+        "\u2705 Cr\u00e9er un syst\u00e8me de navigation simple",
+        "\u2705 Extraire les donn\u00e9es mock",
+        "\ud83c\udfa8 UI/UX Am\u00e9liorations",
+        "\u2705 Am\u00e9liorer les animations et transitions",
+        "\u2705 Configurer le th\u00e8me avec Tailwind (Bonnes pratiques 2024)",
+        "\ud83d\udccb Checklist Priorit\u00e9 1 avec Points de Test",
+        "\ud83d\udd27 \u00c9TAPE 1 : Extraction des donn\u00e9es mock"
+      ],
+      "architecture_hints": []
+    },
+    "specs/MAQUETTE-PRIORITE-5.md": {
+      "sections": [
+        "\ud83d\udfe2 PRIORIT\u00c9 5 - Progr\u00e8s Hebdomadaire Heatmap (1 jour)",
+        "\ud83c\udfaf Objectif Principal",
+        "\ud83c\udfa8 Mockup Visuel",
+        "\ud83d\udce6 Structure de Donn\u00e9es",
+        "\u2705 1. Nouvelles interfaces dans goal-helpers.ts",
+        "\ud83d\udd27 Impl\u00e9mentation dans patient-detail.tsx",
+        "\u2705 2. Importer les nouvelles fonctions",
+        "\u2705 3. Ajouter le state pour la semaine et le jour s\u00e9lectionn\u00e9"
+      ],
+      "architecture_hints": []
+    },
+    "specs/MAQUETTE-PRIORITE-4.md": {
+      "sections": [
+        "\ud83d\udd34 PRIORIT\u00c9 4 - Objectifs Principaux et Secondaires (2 jours)",
+        "\ud83c\udfaf Objectif Principal",
+        "\ud83d\udcca Nouvelle Structure des Donn\u00e9es",
+        "\u2705 1. Modification de l'interface Goal",
+        "\ud83d\uddd1\ufe0f Suppressions \u00e0 effectuer",
+        "\u274c Supprimer toutes les r\u00e9f\u00e9rences aux cat\u00e9gories",
+        "\ud83d\udd27 Modifications du formulaire de cr\u00e9ation",
+        "\u2705 2. Nouveau formulaire create-goal.tsx"
+      ],
+      "architecture_hints": []
+    },
+    "specs/MAQUETTE-PRIORITE-1-AUDIT.md": {
+      "sections": [
+        "\ud83d\udcca AUDIT POST-PRIORIT\u00c9-1 & PLAN D'ACTION",
+        "\ud83d\udd0d R\u00e9sum\u00e9 de l'Audit Externe",
+        "\u2705 Points de l'Audit RETENUS (\u00c0 corriger)",
+        "1. \ud83d\udd34 Memory Leak dans use-toast.ts",
+        "2. \ud83d\udd34 Duplication de Hooks",
+        "3. \ud83d\udfe1 Probl\u00e8me SSR dans use-mobile",
+        "4. \ud83d\udfe1 Configuration Next.js non s\u00e9curis\u00e9e",
+        "5. \ud83d\udfe1 Type `any` dans AppShell",
+        "6. \u26a0\ufe0f Attributs ARIA basiques manquants",
+        "\u274c Points de l'Audit REJET\u00c9S (Justification)"
+      ],
+      "architecture_hints": []
+    }
+  },
+  "directory_purposes": {
+    "specs": "Test specifications",
+    "utils": "Shared utility functions and helpers",
+    "components": "Reusable UI components",
+    "lib": "Library code and shared modules",
+    "app/(dashboard)/therapist": "API endpoints and route handlers",
+    "components/ui": "Test files and test utilities",
+    "components/views": "UI views and templates"
+  },
+  "stats": {
+    "total_files": 84,
+    "total_directories": 22,
+    "fully_parsed": {
+      "typescript": 78
+    },
+    "listed_only": {
+      "json": 5,
+      "css": 1
+    },
+    "markdown_files": 9
+  },
+  "files": {
+    "next-env.d.ts": {
+      "language": "typescript",
+      "parsed": false
+    },
+    "package-lock.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "package.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "components.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "tsconfig.json": {
+      "language": "json",
+      "parsed": false,
+      "purpose": "Configuration"
+    },
+    "PROJECT_INDEX.json": {
+      "language": "json",
+      "parsed": false
+    },
+    "app/layout.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "geist/font/sans",
+        "geist/font/mono"
+      ],
+      "functions": {
+        "RootLayout": "({ children, }: Readonly<{ children: React.ReactNode }>)"
+      },
+      "classes": {},
+      "variables": [
+        "metadata"
+      ],
+      "call_graph": {}
+    },
+    "app/loading.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "functions": {
+        "Loading": "()"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "app/page.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "next/navigation"
+      ],
+      "functions": {
+        "HomePage": "()"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "app/globals.css": {
+      "language": "css",
+      "parsed": false
+    },
+    "app/(auth)/login/page.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/views/login-view"
+      ],
+      "functions": {
+        "LoginPage": "()"
+      },
+      "classes": {},
+      "variables": [
+        "metadata"
+      ],
+      "call_graph": {}
+    },
+    "app/(dashboard)/layout.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/app-shell"
+      ],
+      "functions": {
+        "DashboardLayout": "({ children, }: { children: React.ReactNode })"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "app/(dashboard)/loading.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "functions": {
+        "DashboardLoading": "()"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "app/(dashboard)/patient/[id]/page.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/views/patient-detail",
+        "@/lib/mock-data",
+        "next/navigation"
+      ],
+      "functions": {
+        "generateStaticParams": "async ()",
+        "generateMetadata": "async ({ params }: PageProps): Promise<Metadata>",
+        "PatientDetailPage": "async ({ params }: PageProps)"
+      },
+      "classes": {},
+      "variables": [
+        "patient",
+        "patientGoals"
+      ],
+      "interfaces": {
+        "PageProps": {}
+      },
+      "call_graph": {}
+    },
+    "app/(dashboard)/patient/create-goal/page.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/views/create-goal",
+        "@/lib/mock-data"
+      ],
+      "functions": {
+        "CreateGoalPage": "async ({ searchParams }: PageProps)"
+      },
+      "classes": {},
+      "variables": [
+        "metadata",
+        "params",
+        "patientId"
+      ],
+      "interfaces": {
+        "PageProps": {}
+      },
+      "call_graph": {}
+    },
+    "app/(dashboard)/therapist/page.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/views/therapist-dashboard",
+        "@/lib/mock-data"
+      ],
+      "functions": {
+        "TherapistDashboardPage": "()"
+      },
+      "classes": {},
+      "variables": [
+        "metadata",
+        "patients",
+        "goals"
+      ],
+      "call_graph": {}
+    },
+    "utils/goal-helpers.ts": {
+      "language": "typescript",
+      "parsed": true,
+      "functions": {
+        "groupGoalsByPrimary": {
+          "calls": [
+            "map"
+          ],
+          "signature": "(goals: Goal[]): PrimaryGoalWithSecondaries[]"
+        },
+        "getStandalonePrimaryGoals": "(goals: Goal[]): Goal[]",
+        "getOrphanSecondaryGoals": "(goals: Goal[]): Goal[]",
+        "toggleSecondaryGoal": {
+          "calls": [
+            "map"
+          ],
+          "signature": "(goalId: string, goals: Goal[]): Goal[]"
+        },
+        "calculatePatientGoalStats": {
+          "calls": [
+            "groupGoalsByPrimary"
+          ],
+          "signature": "(patientId: string, goals: Goal[])"
+        },
+        "calculateWeekProgress": "(goals: Goal[], weekStart: Date = new Date()",
+        "getCompletionColor": "(rate: number): string",
+        "getCompletionEmoji": "(rate: number): string"
+      },
+      "classes": {},
+      "updated_by_hook": true,
+      "updated_at": "2025-08-26T19:50:48.121970",
+      "purpose": "Utility functions"
+    },
+    "components/patient-card.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/client/patient-card-actions"
+      ],
+      "functions": {
+        "PatientCard": "({ patient }: { patient: Patient })"
+      },
+      "classes": {},
+      "interfaces": {
+        "Patient": {}
+      },
+      "call_graph": {}
+    },
+    "components/bottom-navigation.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "next/link",
+        "next/navigation",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "BottomNavigation": "()"
+      },
+      "classes": {},
+      "variables": [
+        "pathname",
+        "isPatientView",
+        "navItems",
+        "isActive"
+      ],
+      "call_graph": {}
+    },
+    "components/patient-bottom-navigation.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "PatientBottomNavigation": "({ currentView, onNavigate, className }: PatientBottomNavigationProps)"
+      },
+      "classes": {},
+      "variables": [
+        "navItems",
+        "isActive"
+      ],
+      "interfaces": {
+        "PatientBottomNavigationProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/view-transition.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "framer-motion",
+        "react"
+      ],
+      "functions": {
+        "ViewTransition": "({ children, viewKey }: ViewTransitionProps)"
+      },
+      "classes": {},
+      "variables": [
+        "pageVariants"
+      ],
+      "interfaces": {
+        "ViewTransitionProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/responsive-patterns.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react"
+      ],
+      "functions": {
+        "ResponsiveGrid": "({ children }: ResponsivePatternProps)",
+        "ResponsiveContainer": "({ children }: ResponsivePatternProps)",
+        "ResponsiveHeading": "({ children }: ResponsivePatternProps)",
+        "ResponsiveStack": "({ children }: ResponsivePatternProps)",
+        "ResponsiveTable": "({ headers, children, className }: ResponsiveTableProps)"
+      },
+      "classes": {},
+      "interfaces": {
+        "ResponsivePatternProps": {},
+        "ResponsiveTableProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/therapist-bottom-navigation.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "TherapistBottomNavigation": "({ currentView, onNavigate, className }: TherapistBottomNavigationProps)"
+      },
+      "classes": {},
+      "variables": [
+        "navItems",
+        "isActive"
+      ],
+      "interfaces": {
+        "TherapistBottomNavigationProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/app-shell.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/bottom-navigation",
+        "next/navigation"
+      ],
+      "functions": {
+        "AppShell": "({ children }: { children: React.ReactNode })"
+      },
+      "classes": {},
+      "variables": [
+        "pathname",
+        "isPatientView"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/aspect-ratio.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "purpose": "Test file",
+      "imports": [
+        "@radix-ui/react-aspect-ratio"
+      ],
+      "functions": {
+        "AspectRatio": "({ ...props }: React.ComponentProps<typeof AspectRatioPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/alert-dialog.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-alert-dialog",
+        "@/lib/utils",
+        "@/components/ui/button"
+      ],
+      "functions": {
+        "AlertDialog": "({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Root>)",
+        "AlertDialogTrigger": "({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>)",
+        "AlertDialogPortal": "({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Portal>)",
+        "AlertDialogOverlay": "({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Overlay>)",
+        "AlertDialogContent": "({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>)",
+        "AlertDialogHeader": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "AlertDialogFooter": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "AlertDialogTitle": "({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Title>)",
+        "AlertDialogDescription": "({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Description>)",
+        "AlertDialogAction": "({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Action>)",
+        "AlertDialogCancel": "({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Cancel>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/pagination.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "lucide-react",
+        "@/lib/utils",
+        "@/components/ui/button"
+      ],
+      "functions": {
+        "Pagination": "({ className, ...props }: React.ComponentProps<\"nav\">)",
+        "PaginationContent": "({ className, ...props }: React.ComponentProps<\"ul\">)",
+        "PaginationItem": "({ ...props }: React.ComponentProps<\"li\">)",
+        "PaginationLink": "({ className, isActive, size = \"icon\", ...props }: PaginationLinkProps)",
+        "PaginationPrevious": "({ className, ...props }: React.ComponentProps<typeof PaginationLink>)",
+        "PaginationNext": "({ className, ...props }: React.ComponentProps<typeof PaginationLink>)",
+        "PaginationEllipsis": "({ className, ...props }: React.ComponentProps<\"span\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/tabs.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-tabs",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Tabs": "({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>)",
+        "TabsList": "({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>)",
+        "TabsTrigger": "({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>)",
+        "TabsContent": "({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/card.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Card": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "CardHeader": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "CardTitle": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "CardDescription": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "CardAction": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "CardContent": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "CardFooter": "({ className, ...props }: React.ComponentProps<\"div\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/slider.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-slider",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Slider": "({ className, defaultValue, value, min = 0, max = 100, ...props }: React.ComponentProps<typeof SliderPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/popover.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-popover",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Popover": "({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Root>)",
+        "PopoverTrigger": "({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>)",
+        "PopoverContent": "({ className, align = \"center\", sideOffset = 4, ...props }: React.ComponentProps<typeof PopoverPrimitive.Content>)",
+        "PopoverAnchor": "({ ...props }: React.ComponentProps<typeof PopoverPrimitive.Anchor>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/progress.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-progress",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Progress": "({ className, value, ...props }: React.ComponentProps<typeof ProgressPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/toaster.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/hooks/use-toast",
+        "@/components/ui/toast"
+      ],
+      "functions": {
+        "Toaster": "()"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/input-otp.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "input-otp",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "InputOTP": "({ className, containerClassName, ...props }: React.ComponentProps<typeof OTPInput> & { containerClassName?: string })",
+        "InputOTPGroup": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "InputOTPSlot": "({ index, className, ...props }: React.ComponentProps<\"div\"> & { index: number })",
+        "InputOTPSeparator": "({ ...props }: React.ComponentProps<\"div\">)"
+      },
+      "classes": {},
+      "variables": [
+        "inputOTPContext"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/chart.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "recharts",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "useChart": {
+          "signature": "()",
+          "called_by": [
+            "ChartTooltipContent",
+            "ChartLegendContent"
+          ]
+        },
+        "ChartContainer": "({ id, className, children, config, ...props }: React.ComponentProps<\"div\"> & { config: ChartConfig children: React.ComponentProps< typeof RechartsPrimitive.ResponsiveContainer >[\"children\"] })",
+        "ChartTooltipContent": {
+          "calls": [
+            "getPayloadConfigFromPayload",
+            "useChart"
+          ],
+          "signature": "({ active, payload, className, indicator = \"dot\", hideLabel = false, hideIndicator = false, label, labelFormatter, labelClassName, formatter, color, nameKey, labelKey, }: React.ComponentProps<typeof RechartsPrimitive.Tooltip> & React.ComponentProps<\"div\"> & { hideLabel?: boolean hideIndicator?: boolean indicator?: \"line\" | \"dot\" | \"dashed\" nameKey?: string labelKey?: string })"
+        },
+        "ChartLegendContent": {
+          "calls": [
+            "getPayloadConfigFromPayload",
+            "useChart"
+          ],
+          "signature": "({ className, hideIcon = false, payload, verticalAlign = \"bottom\", nameKey, }: React.ComponentProps<\"div\"> & Pick<RechartsPrimitive.LegendProps, \"payload\" | \"verticalAlign\"> & { hideIcon?: boolean nameKey?: string })"
+        },
+        "getPayloadConfigFromPayload": {
+          "signature": "(config: ChartConfig, payload: unknown, key: string)",
+          "called_by": [
+            "ChartTooltipContent",
+            "ChartLegendContent"
+          ]
+        },
+        "ChartStyle": "({ id, config }: { id: string; config: ChartConfig })"
+      },
+      "classes": {},
+      "constants": {
+        "THEMES": "collection"
+      },
+      "variables": [
+        "context",
+        "uniqueId",
+        "chartId",
+        "colorConfig",
+        "color",
+        "tooltipLabel",
+        "key",
+        "itemConfig",
+        "value",
+        "nestLabel",
+        "indicatorColor",
+        "payloadPayload",
+        "configLabelKey"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/hover-card.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-hover-card",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "HoverCard": "({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Root>)",
+        "HoverCardTrigger": "({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Trigger>)",
+        "HoverCardContent": "({ className, align = \"center\", sideOffset = 4, ...props }: React.ComponentProps<typeof HoverCardPrimitive.Content>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/sheet.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Sheet": "({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>)",
+        "SheetTrigger": "({ ...props }: React.ComponentProps<typeof SheetPrimitive.Trigger>)",
+        "SheetClose": "({ ...props }: React.ComponentProps<typeof SheetPrimitive.Close>)",
+        "SheetPortal": "({ ...props }: React.ComponentProps<typeof SheetPrimitive.Portal>)",
+        "SheetOverlay": "({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Overlay>)",
+        "SheetContent": "({ className, children, side = \"right\", ...props }: React.ComponentProps<typeof SheetPrimitive.Content> & { side?: \"top\" | \"right\" | \"bottom\" | \"left\" })",
+        "SheetHeader": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SheetFooter": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SheetTitle": "({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Title>)",
+        "SheetDescription": "({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Description>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/scroll-area.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-scroll-area",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "ScrollArea": "({ className, children, ...props }: React.ComponentProps<typeof ScrollAreaPrimitive.Root>)",
+        "ScrollBar": "({ className, orientation = \"vertical\", ...props }: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/resizable.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "lucide-react",
+        "react-resizable-panels",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "ResizablePanelGroup": "({ className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>)",
+        "ResizablePanel": "({ ...props }: React.ComponentProps<typeof ResizablePrimitive.Panel>)",
+        "ResizableHandle": "({ withHandle, className, ...props }: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & { withHandle?: boolean })"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/label.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-label",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Label": "({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/sonner.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "next-themes",
+        "sonner"
+      ],
+      "functions": {
+        "Toaster": "({ ...props }: ToasterProps)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/navigation-menu.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-navigation-menu",
+        "class-variance-authority",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "NavigationMenu": "({ className, children, viewport = true, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & { viewport?: boolean })",
+        "NavigationMenuList": "({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.List>)",
+        "NavigationMenuItem": "({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Item>)",
+        "NavigationMenuTrigger": "({ className, children, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>)",
+        "NavigationMenuContent": "({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Content>)",
+        "NavigationMenuViewport": "({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Viewport>)",
+        "NavigationMenuLink": "({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Link>)",
+        "NavigationMenuIndicator": "({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Indicator>)"
+      },
+      "classes": {},
+      "variables": [
+        "navigationMenuTriggerStyle"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/accordion.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-accordion",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Accordion": "({ ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>)",
+        "AccordionItem": "({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>)",
+        "AccordionTrigger": "({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Trigger>)",
+        "AccordionContent": "({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Content>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/drawer.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "vaul",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Drawer": "({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>)",
+        "DrawerTrigger": "({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Trigger>)",
+        "DrawerPortal": "({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Portal>)",
+        "DrawerClose": "({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Close>)",
+        "DrawerOverlay": "({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Overlay>)",
+        "DrawerContent": "({ className, children, ...props }: React.ComponentProps<typeof DrawerPrimitive.Content>)",
+        "DrawerHeader": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "DrawerFooter": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "DrawerTitle": "({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Title>)",
+        "DrawerDescription": "({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Description>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/tooltip.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-tooltip",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "TooltipProvider": "({ delayDuration = 0, ...props }: React.ComponentProps<typeof TooltipPrimitive.Provider>)",
+        "Tooltip": "({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root>)",
+        "TooltipTrigger": "({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Trigger>)",
+        "TooltipContent": "({ className, sideOffset = 0, children, ...props }: React.ComponentProps<typeof TooltipPrimitive.Content>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/alert.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "class-variance-authority",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Alert": "({ className, variant, ...props }: React.ComponentProps<\"div\"> & VariantProps<typeof alertVariants>)",
+        "AlertTitle": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "AlertDescription": "({ className, ...props }: React.ComponentProps<\"div\">)"
+      },
+      "classes": {},
+      "variables": [
+        "alertVariants"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/switch.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-switch",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Switch": "({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/calendar.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "lucide-react",
+        "react-day-picker",
+        "@/lib/utils",
+        "@/components/ui/button"
+      ],
+      "functions": {
+        "Calendar": "({ className, classNames, showOutsideDays = true, captionLayout = \"label\", buttonVariant = \"ghost\", formatters, components, ...props }: React.ComponentProps<typeof DayPicker> & { buttonVariant?: React.ComponentProps<typeof Button>[\"variant\"] })",
+        "CalendarDayButton": "({ className, day, modifiers, ...props }: React.ComponentProps<typeof DayButton>)"
+      },
+      "classes": {},
+      "variables": [
+        "defaultClassNames",
+        "ref"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/breadcrumb.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-slot",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Breadcrumb": "({ ...props }: React.ComponentProps<\"nav\">)",
+        "BreadcrumbList": "({ className, ...props }: React.ComponentProps<\"ol\">)",
+        "BreadcrumbItem": "({ className, ...props }: React.ComponentProps<\"li\">)",
+        "BreadcrumbLink": "({ asChild, className, ...props }: React.ComponentProps<\"a\"> & { asChild?: boolean })",
+        "BreadcrumbPage": "({ className, ...props }: React.ComponentProps<\"span\">)",
+        "BreadcrumbSeparator": "({ children, className, ...props }: React.ComponentProps<\"li\">)",
+        "BreadcrumbEllipsis": "({ className, ...props }: React.ComponentProps<\"span\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/radio-group.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-radio-group",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "RadioGroup": "({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Root>)",
+        "RadioGroupItem": "({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Item>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/command.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "cmdk",
+        "lucide-react",
+        "@/lib/utils",
+        "@/components/ui/dialog"
+      ],
+      "functions": {
+        "Command": "({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>)",
+        "CommandDialog": "({ title = \"Command Palette\", description = \"Search for a command to run...\", children, className, showCloseButton = true, ...props }: React.ComponentProps<typeof Dialog> & { title?: string description?: string className?: string showCloseButton?: boolean })",
+        "CommandInput": "({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Input>)",
+        "CommandList": "({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.List>)",
+        "CommandEmpty": "({ ...props }: React.ComponentProps<typeof CommandPrimitive.Empty>)",
+        "CommandGroup": "({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Group>)",
+        "CommandSeparator": "({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Separator>)",
+        "CommandItem": "({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Item>)",
+        "CommandShortcut": "({ className, ...props }: React.ComponentProps<\"span\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/toggle-group.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-toggle-group",
+        "class-variance-authority",
+        "@/lib/utils",
+        "@/components/ui/toggle"
+      ],
+      "functions": {
+        "ToggleGroup": "({ className, variant, size, children, ...props }: React.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>)",
+        "ToggleGroupItem": "({ className, children, variant, size, ...props }: React.ComponentProps<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants>)"
+      },
+      "classes": {},
+      "variables": [
+        "context"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/avatar.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-avatar",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Avatar": "({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>)",
+        "AvatarImage": "({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>)",
+        "AvatarFallback": "({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Fallback>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/menubar.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-menubar",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Menubar": "({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Root>)",
+        "MenubarMenu": "({ ...props }: React.ComponentProps<typeof MenubarPrimitive.Menu>)",
+        "MenubarGroup": "({ ...props }: React.ComponentProps<typeof MenubarPrimitive.Group>)",
+        "MenubarPortal": "({ ...props }: React.ComponentProps<typeof MenubarPrimitive.Portal>)",
+        "MenubarRadioGroup": "({ ...props }: React.ComponentProps<typeof MenubarPrimitive.RadioGroup>)",
+        "MenubarTrigger": "({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Trigger>)",
+        "MenubarContent": "({ className, align = \"start\", alignOffset = -4, sideOffset = 8, ...props }: React.ComponentProps<typeof MenubarPrimitive.Content>)",
+        "MenubarItem": "({ className, inset, variant = \"default\", ...props }: React.ComponentProps<typeof MenubarPrimitive.Item> & { inset?: boolean variant?: \"default\" | \"destructive\" })",
+        "MenubarCheckboxItem": "({ className, children, checked, ...props }: React.ComponentProps<typeof MenubarPrimitive.CheckboxItem>)",
+        "MenubarRadioItem": "({ className, children, ...props }: React.ComponentProps<typeof MenubarPrimitive.RadioItem>)",
+        "MenubarLabel": "({ className, inset, ...props }: React.ComponentProps<typeof MenubarPrimitive.Label> & { inset?: boolean })",
+        "MenubarSeparator": "({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Separator>)",
+        "MenubarShortcut": "({ className, ...props }: React.ComponentProps<\"span\">)",
+        "MenubarSub": "({ ...props }: React.ComponentProps<typeof MenubarPrimitive.Sub>)",
+        "MenubarSubTrigger": "({ className, inset, children, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubTrigger> & { inset?: boolean })",
+        "MenubarSubContent": "({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubContent>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/dialog.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Dialog": "({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>)",
+        "DialogTrigger": "({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>)",
+        "DialogPortal": "({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>)",
+        "DialogClose": "({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>)",
+        "DialogOverlay": "({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Overlay>)",
+        "DialogContent": "({ className, children, showCloseButton = true, ...props }: React.ComponentProps<typeof DialogPrimitive.Content> & { showCloseButton?: boolean })",
+        "DialogHeader": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "DialogFooter": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "DialogTitle": "({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>)",
+        "DialogDescription": "({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Description>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/badge.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Badge": "({ className, variant, asChild = false, ...props }: React.ComponentProps<\"span\"> & VariantProps<typeof badgeVariants> & { asChild?: boolean })"
+      },
+      "classes": {},
+      "variables": [
+        "badgeVariants"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/sidebar.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "lucide-react",
+        "@/hooks/use-mobile",
+        "@/lib/utils",
+        "@/components/ui/button",
+        "@/components/ui/input",
+        "@/components/ui/separator",
+        "@/components/ui/sheet",
+        "@/components/ui/skeleton",
+        "@/components/ui/tooltip"
+      ],
+      "functions": {
+        "useSidebar": {
+          "signature": "()",
+          "called_by": [
+            "Sidebar",
+            "SidebarTrigger",
+            "SidebarRail",
+            "SidebarMenuButton"
+          ]
+        },
+        "SidebarProvider": "({ defaultOpen = true, open: openProp, onOpenChange: setOpenProp, className, style, children, ...props }: React.ComponentProps<\"div\"> & { defaultOpen?: boolean open?: boolean onOpenChange?: (open: boolean)",
+        "Sidebar": {
+          "calls": [
+            "useSidebar"
+          ],
+          "signature": "({ side = \"left\", variant = \"sidebar\", collapsible = \"offcanvas\", className, children, ...props }: React.ComponentProps<\"div\"> & { side?: \"left\" | \"right\" variant?: \"sidebar\" | \"floating\" | \"inset\" collapsible?: \"offcanvas\" | \"icon\" | \"none\" })"
+        },
+        "SidebarTrigger": {
+          "calls": [
+            "useSidebar"
+          ],
+          "signature": "({ className, onClick, ...props }: React.ComponentProps<typeof Button>)"
+        },
+        "SidebarRail": {
+          "calls": [
+            "useSidebar"
+          ],
+          "signature": "({ className, ...props }: React.ComponentProps<\"button\">)"
+        },
+        "SidebarInset": "({ className, ...props }: React.ComponentProps<\"main\">)",
+        "SidebarInput": "({ className, ...props }: React.ComponentProps<typeof Input>)",
+        "SidebarHeader": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SidebarFooter": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SidebarSeparator": "({ className, ...props }: React.ComponentProps<typeof Separator>)",
+        "SidebarContent": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SidebarGroup": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SidebarGroupLabel": "({ className, asChild = false, ...props }: React.ComponentProps<\"div\"> & { asChild?: boolean })",
+        "SidebarGroupAction": "({ className, asChild = false, ...props }: React.ComponentProps<\"button\"> & { asChild?: boolean })",
+        "SidebarGroupContent": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SidebarMenu": "({ className, ...props }: React.ComponentProps<\"ul\">)",
+        "SidebarMenuItem": "({ className, ...props }: React.ComponentProps<\"li\">)",
+        "SidebarMenuButton": {
+          "calls": [
+            "useSidebar"
+          ],
+          "signature": "({ asChild = false, isActive = false, variant = \"default\", size = \"default\", tooltip, className, ...props }: React.ComponentProps<\"button\"> & { asChild?: boolean isActive?: boolean tooltip?: string | React.ComponentProps<typeof TooltipContent> } & VariantProps<typeof sidebarMenuButtonVariants>)"
+        },
+        "SidebarMenuAction": "({ className, asChild = false, showOnHover = false, ...props }: React.ComponentProps<\"button\"> & { asChild?: boolean showOnHover?: boolean })",
+        "SidebarMenuBadge": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "SidebarMenuSkeleton": "({ className, showIcon = false, ...props }: React.ComponentProps<\"div\"> & { showIcon?: boolean })",
+        "SidebarMenuSub": "({ className, ...props }: React.ComponentProps<\"ul\">)",
+        "SidebarMenuSubItem": "({ className, ...props }: React.ComponentProps<\"li\">)",
+        "SidebarMenuSubButton": "({ asChild = false, size = \"md\", isActive = false, className, ...props }: React.ComponentProps<\"a\"> & { asChild?: boolean size?: \"sm\" | \"md\" isActive?: boolean })",
+        "handleKeyDown": "(event: KeyboardEvent)"
+      },
+      "classes": {},
+      "constants": {
+        "SIDEBAR_COOKIE_NAME": "str"
+      },
+      "variables": [
+        "context",
+        "isMobile",
+        "open",
+        "setOpen",
+        "openState",
+        "toggleSidebar",
+        "handleKeyDown",
+        "state",
+        "contextValue",
+        "sidebarMenuButtonVariants",
+        "button",
+        "width"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/table.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Table": "({ className, ...props }: React.ComponentProps<\"table\">)",
+        "TableHeader": "({ className, ...props }: React.ComponentProps<\"thead\">)",
+        "TableBody": "({ className, ...props }: React.ComponentProps<\"tbody\">)",
+        "TableFooter": "({ className, ...props }: React.ComponentProps<\"tfoot\">)",
+        "TableRow": "({ className, ...props }: React.ComponentProps<\"tr\">)",
+        "TableHead": "({ className, ...props }: React.ComponentProps<\"th\">)",
+        "TableCell": "({ className, ...props }: React.ComponentProps<\"td\">)",
+        "TableCaption": "({ className, ...props }: React.ComponentProps<\"caption\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/separator.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-separator",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Separator": "({ className, orientation = \"horizontal\", decorative = true, ...props }: React.ComponentProps<typeof SeparatorPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/button.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Button": "({ className, variant, size, asChild = false, ...props }: React.ComponentProps<\"button\"> & VariantProps<typeof buttonVariants> & { asChild?: boolean })"
+      },
+      "classes": {},
+      "variables": [
+        "buttonVariants"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/toggle.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-toggle",
+        "class-variance-authority",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Toggle": "({ className, variant, size, ...props }: React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>)"
+      },
+      "classes": {},
+      "variables": [
+        "toggleVariants"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/toast.tsx": {
+      "language": "typescript",
+      "parsed": false
+    },
+    "components/ui/checkbox.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-checkbox",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Checkbox": "({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/collapsible.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@radix-ui/react-collapsible"
+      ],
+      "functions": {
+        "Collapsible": "({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root>)",
+        "CollapsibleTrigger": "({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>)",
+        "CollapsibleContent": "({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/dropdown-menu.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-dropdown-menu",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "DropdownMenu": "({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>)",
+        "DropdownMenuPortal": "({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>)",
+        "DropdownMenuTrigger": "({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>)",
+        "DropdownMenuContent": "({ className, sideOffset = 4, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Content>)",
+        "DropdownMenuGroup": "({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>)",
+        "DropdownMenuItem": "({ className, inset, variant = \"default\", ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & { inset?: boolean variant?: \"default\" | \"destructive\" })",
+        "DropdownMenuCheckboxItem": "({ className, children, checked, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>)",
+        "DropdownMenuRadioGroup": "({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>)",
+        "DropdownMenuRadioItem": "({ className, children, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem>)",
+        "DropdownMenuLabel": "({ className, inset, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Label> & { inset?: boolean })",
+        "DropdownMenuSeparator": "({ className, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>)",
+        "DropdownMenuShortcut": "({ className, ...props }: React.ComponentProps<\"span\">)",
+        "DropdownMenuSub": "({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>)",
+        "DropdownMenuSubTrigger": "({ className, inset, children, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & { inset?: boolean })",
+        "DropdownMenuSubContent": "({ className, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/select.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-select",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Select": "({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>)",
+        "SelectGroup": "({ ...props }: React.ComponentProps<typeof SelectPrimitive.Group>)",
+        "SelectValue": "({ ...props }: React.ComponentProps<typeof SelectPrimitive.Value>)",
+        "SelectTrigger": "({ className, size = \"default\", children, ...props }: React.ComponentProps<typeof SelectPrimitive.Trigger> & { size?: \"sm\" | \"default\" })",
+        "SelectContent": "({ className, children, position = \"popper\", ...props }: React.ComponentProps<typeof SelectPrimitive.Content>)",
+        "SelectLabel": "({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>)",
+        "SelectItem": "({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Item>)",
+        "SelectSeparator": "({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Separator>)",
+        "SelectScrollUpButton": "({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>)",
+        "SelectScrollDownButton": "({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/textarea.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Textarea": "({ className, ...props }: React.ComponentProps<\"textarea\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/input.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Input": "({ className, type, ...props }: React.ComponentProps<\"input\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/skeleton.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/lib/utils"
+      ],
+      "functions": {
+        "Skeleton": "({ className, ...props }: React.ComponentProps<\"div\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/context-menu.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-context-menu",
+        "lucide-react",
+        "@/lib/utils"
+      ],
+      "functions": {
+        "ContextMenu": "({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Root>)",
+        "ContextMenuTrigger": "({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Trigger>)",
+        "ContextMenuGroup": "({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Group>)",
+        "ContextMenuPortal": "({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Portal>)",
+        "ContextMenuSub": "({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Sub>)",
+        "ContextMenuRadioGroup": "({ ...props }: React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>)",
+        "ContextMenuSubTrigger": "({ className, inset, children, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubTrigger> & { inset?: boolean })",
+        "ContextMenuSubContent": "({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>)",
+        "ContextMenuContent": "({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Content>)",
+        "ContextMenuItem": "({ className, inset, variant = \"default\", ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Item> & { inset?: boolean variant?: \"default\" | \"destructive\" })",
+        "ContextMenuCheckboxItem": "({ className, children, checked, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem>)",
+        "ContextMenuRadioItem": "({ className, children, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.RadioItem>)",
+        "ContextMenuLabel": "({ className, inset, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Label> & { inset?: boolean })",
+        "ContextMenuSeparator": "({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Separator>)",
+        "ContextMenuShortcut": "({ className, ...props }: React.ComponentProps<\"span\">)"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "components/ui/form.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@radix-ui/react-label",
+        "@radix-ui/react-slot",
+        "react-hook-form",
+        "@/lib/utils",
+        "@/components/ui/label"
+      ],
+      "functions": {
+        "FormItem": "({ className, ...props }: React.ComponentProps<\"div\">)",
+        "FormLabel": {
+          "calls": [
+            "useFormField"
+          ],
+          "signature": "({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>)"
+        },
+        "FormControl": {
+          "calls": [
+            "useFormField"
+          ],
+          "signature": "({ ...props }: React.ComponentProps<typeof Slot>)"
+        },
+        "FormDescription": {
+          "calls": [
+            "useFormField"
+          ],
+          "signature": "({ className, ...props }: React.ComponentProps<\"p\">)"
+        },
+        "FormMessage": {
+          "calls": [
+            "useFormField"
+          ],
+          "signature": "({ className, ...props }: React.ComponentProps<\"p\">)"
+        },
+        "useFormField": {
+          "signature": "()",
+          "called_by": [
+            "FormLabel",
+            "FormControl",
+            "FormDescription",
+            "FormMessage"
+          ]
+        }
+      },
+      "classes": {},
+      "variables": [
+        "useFormField",
+        "fieldContext",
+        "itemContext",
+        "formState",
+        "fieldState",
+        "id",
+        "body"
+      ],
+      "call_graph": {}
+    },
+    "components/ui/carousel.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "lucide-react",
+        "@/lib/utils",
+        "@/components/ui/button"
+      ],
+      "functions": {
+        "useCarousel": {
+          "signature": "()",
+          "called_by": [
+            "CarouselContent",
+            "CarouselItem",
+            "CarouselPrevious",
+            "CarouselNext"
+          ]
+        },
+        "Carousel": "({ orientation = \"horizontal\", opts, setApi, plugins, className, children, ...props }: React.ComponentProps<\"div\"> & CarouselProps)",
+        "CarouselContent": {
+          "calls": [
+            "useCarousel"
+          ],
+          "signature": "({ className, ...props }: React.ComponentProps<\"div\">)"
+        },
+        "CarouselItem": {
+          "calls": [
+            "useCarousel"
+          ],
+          "signature": "({ className, ...props }: React.ComponentProps<\"div\">)"
+        },
+        "CarouselPrevious": {
+          "calls": [
+            "useCarousel"
+          ],
+          "signature": "({ className, variant = \"outline\", size = \"icon\", ...props }: React.ComponentProps<typeof Button>)"
+        },
+        "CarouselNext": {
+          "calls": [
+            "useCarousel"
+          ],
+          "signature": "({ className, variant = \"outline\", size = \"icon\", ...props }: React.ComponentProps<typeof Button>)"
+        }
+      },
+      "classes": {},
+      "variables": [
+        "context",
+        "onSelect",
+        "scrollPrev",
+        "scrollNext",
+        "handleKeyDown"
+      ],
+      "call_graph": {}
+    },
+    "components/views/patient-goals.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/progress",
+        "lucide-react",
+        "@/components/responsive-patterns",
+        "@/utils/goal-helpers"
+      ],
+      "functions": {
+        "PatientGoals": "({ goals, onNavigate }: PatientGoalsProps)",
+        "toggleExpanded": "(goalId: string)"
+      },
+      "classes": {},
+      "variables": [
+        "groupedGoals",
+        "completedSecondaryGoals",
+        "totalSecondaryGoals",
+        "earnedPoints",
+        "possiblePoints",
+        "progressPercentage",
+        "toggleExpanded",
+        "newExpanded"
+      ],
+      "interfaces": {
+        "PatientGoalsProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/views/login-view.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "next/navigation",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/ui/tabs",
+        "lucide-react",
+        "framer-motion"
+      ],
+      "functions": {
+        "LoginView": "()"
+      },
+      "classes": {},
+      "variables": [
+        "router"
+      ],
+      "call_graph": {}
+    },
+    "components/views/create-goal.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "next/navigation",
+        "next/link",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/input",
+        "@/components/ui/label",
+        "@/components/responsive-patterns",
+        "lucide-react"
+      ],
+      "functions": {
+        "CreateGoal": "({ patients, goals, initialPatientId }: CreateGoalProps)"
+      },
+      "classes": {},
+      "variables": [
+        "router",
+        "availableParentGoals"
+      ],
+      "interfaces": {
+        "Patient": {},
+        "CreateGoalProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/views/patient-detail.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "next/navigation",
+        "next/link",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/badge",
+        "@/components/ui/progress",
+        "lucide-react",
+        "@/components/responsive-patterns",
+        "@/utils/goal-helpers",
+        "react"
+      ],
+      "functions": {
+        "PatientDetail": "({ patient, goals }: PatientDetailProps)",
+        "toggleExpanded": "(goalId: string)",
+        "changeWeek": "(direction: 'prev' | 'next')"
+      },
+      "classes": {},
+      "variables": [
+        "router",
+        "patientGoals",
+        "groupedGoals",
+        "standalonePrimaries",
+        "weekProgress",
+        "toggleExpanded",
+        "newExpanded",
+        "changeWeek",
+        "newWeek"
+      ],
+      "interfaces": {
+        "Patient": {},
+        "PatientDetailProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/views/index.ts": {
+      "language": "typescript",
+      "parsed": false,
+      "purpose": "Application entry point"
+    },
+    "components/views/therapist-dashboard.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "next/navigation",
+        "next/link",
+        "@/components/ui/button",
+        "@/components/ui/card",
+        "@/components/ui/input",
+        "@/components/ui/badge",
+        "@/components/ui/progress",
+        "lucide-react",
+        "framer-motion",
+        "@/components/responsive-patterns"
+      ],
+      "functions": {
+        "PatientCard": "({ patient, onArchive, onReactivate, viewMode }: { patient: Patient, onArchive: (patientId: string)",
+        "TherapistDashboard": "({ patients, goals }: TherapistDashboardProps)",
+        "getFilteredPatients": "()",
+        "handleArchivePatient": "(patientId: string)",
+        "handleReactivatePatient": "(patientId: string)"
+      },
+      "classes": {},
+      "variables": [
+        "router",
+        "activePatients",
+        "archivedPatients",
+        "currentPatients",
+        "getFilteredPatients",
+        "matchesSearch",
+        "matchesProgress",
+        "completionRate",
+        "handleArchivePatient",
+        "handleReactivatePatient",
+        "filteredPatients"
+      ],
+      "interfaces": {
+        "Patient": {},
+        "TherapistDashboardProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/client/search-input.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "@/components/ui/input"
+      ],
+      "functions": {
+        "SearchInput": "({ value, onChange, placeholder }: SearchInputProps)"
+      },
+      "classes": {},
+      "interfaces": {
+        "SearchInputProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/client/patient-card-actions.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "next/link",
+        "@/components/ui/button"
+      ],
+      "functions": {
+        "PatientCardActions": "({ patientId }: { patientId: string })"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "hooks/use-mobile.ts": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react"
+      ],
+      "functions": {
+        "useIsMobile": "()",
+        "onChange": "()"
+      },
+      "classes": {},
+      "constants": {
+        "MOBILE_BREAKPOINT": "value"
+      },
+      "variables": [
+        "mql",
+        "onChange"
+      ],
+      "call_graph": {}
+    },
+    "hooks/use-toast.ts": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react"
+      ],
+      "functions": {
+        "genId": {
+          "signature": "()",
+          "called_by": [
+            "toast"
+          ]
+        },
+        "dispatch": {
+          "calls": [
+            "reducer"
+          ],
+          "signature": "(action: Action)",
+          "called_by": [
+            "toast",
+            "useToast",
+            "addToRemoveQueue"
+          ]
+        },
+        "toast": {
+          "calls": [
+            "dismiss",
+            "dispatch",
+            "genId"
+          ],
+          "signature": "({ ...props }: Toast)"
+        },
+        "useToast": {
+          "calls": [
+            "dispatch"
+          ],
+          "signature": "()"
+        },
+        "addToRemoveQueue": {
+          "calls": [
+            "dispatch"
+          ],
+          "signature": "(toastId: string)",
+          "called_by": [
+            "reducer"
+          ]
+        },
+        "reducer": {
+          "calls": [
+            "addToRemoveQueue"
+          ],
+          "signature": "(state: State, action: Action): State",
+          "called_by": [
+            "dispatch"
+          ]
+        },
+        "update": "(props: ToasterToast)",
+        "dismiss": {
+          "signature": "()",
+          "called_by": [
+            "toast"
+          ]
+        }
+      },
+      "classes": {},
+      "constants": {
+        "TOAST_LIMIT": "value"
+      },
+      "variables": [
+        "actionTypes",
+        "count",
+        "toastTimeouts",
+        "addToRemoveQueue",
+        "timeout",
+        "reducer",
+        "memoryState",
+        "id",
+        "update",
+        "dismiss",
+        "index"
+      ],
+      "interfaces": {
+        "State": {}
+      },
+      "call_graph": {}
+    },
+    "lib/utils.ts": {
+      "language": "typescript",
+      "parsed": true,
+      "purpose": "Utility functions",
+      "imports": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "functions": {
+        "cn": "(...inputs: ClassValue[])"
+      },
+      "classes": {},
+      "call_graph": {}
+    },
+    "lib/mock-data.ts": {
+      "language": "typescript",
+      "parsed": false,
+      "functions": {},
+      "classes": {},
+      "updated_by_hook": true,
+      "updated_at": "2025-08-26T19:52:52.778913"
+    }
+  },
+  "dependency_graph": {
+    "app/layout.tsx": [
+      "geist/font/sans",
+      "geist/font/mono"
+    ],
+    "app/page.tsx": [
+      "next/navigation"
+    ],
+    "app/(auth)/login/page.tsx": [
+      "@/components/views/login-view"
+    ],
+    "app/(dashboard)/layout.tsx": [
+      "@/components/app-shell"
+    ],
+    "app/(dashboard)/patient/[id]/page.tsx": [
+      "@/components/views/patient-detail",
+      "@/lib/mock-data",
+      "next/navigation"
+    ],
+    "app/(dashboard)/patient/create-goal/page.tsx": [
+      "@/components/views/create-goal",
+      "@/lib/mock-data"
+    ],
+    "app/(dashboard)/therapist/page.tsx": [
+      "@/components/views/therapist-dashboard",
+      "@/lib/mock-data"
+    ],
+    "components/patient-card.tsx": [
+      "@/components/ui/card",
+      "@/components/ui/badge",
+      "@/components/client/patient-card-actions"
+    ],
+    "components/bottom-navigation.tsx": [
+      "next/link",
+      "next/navigation",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/patient-bottom-navigation.tsx": [
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/view-transition.tsx": [
+      "framer-motion",
+      "react"
+    ],
+    "components/responsive-patterns.tsx": [
+      "react"
+    ],
+    "components/therapist-bottom-navigation.tsx": [
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/app-shell.tsx": [
+      "@/components/bottom-navigation",
+      "next/navigation"
+    ],
+    "components/ui/aspect-ratio.tsx": [
+      "@radix-ui/react-aspect-ratio"
+    ],
+    "components/ui/alert-dialog.tsx": [
+      "react",
+      "@radix-ui/react-alert-dialog",
+      "@/lib/utils",
+      "@/components/ui/button"
+    ],
+    "components/ui/pagination.tsx": [
+      "react",
+      "lucide-react",
+      "@/lib/utils",
+      "@/components/ui/button"
+    ],
+    "components/ui/tabs.tsx": [
+      "react",
+      "@radix-ui/react-tabs",
+      "@/lib/utils"
+    ],
+    "components/ui/card.tsx": [
+      "react",
+      "@/lib/utils"
+    ],
+    "components/ui/slider.tsx": [
+      "react",
+      "@radix-ui/react-slider",
+      "@/lib/utils"
+    ],
+    "components/ui/popover.tsx": [
+      "react",
+      "@radix-ui/react-popover",
+      "@/lib/utils"
+    ],
+    "components/ui/progress.tsx": [
+      "react",
+      "@radix-ui/react-progress",
+      "@/lib/utils"
+    ],
+    "components/ui/toaster.tsx": [
+      "@/hooks/use-toast",
+      "@/components/ui/toast"
+    ],
+    "components/ui/input-otp.tsx": [
+      "react",
+      "input-otp",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/chart.tsx": [
+      "react",
+      "recharts",
+      "@/lib/utils"
+    ],
+    "components/ui/hover-card.tsx": [
+      "react",
+      "@radix-ui/react-hover-card",
+      "@/lib/utils"
+    ],
+    "components/ui/sheet.tsx": [
+      "react",
+      "@radix-ui/react-dialog",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/scroll-area.tsx": [
+      "react",
+      "@radix-ui/react-scroll-area",
+      "@/lib/utils"
+    ],
+    "components/ui/resizable.tsx": [
+      "react",
+      "lucide-react",
+      "react-resizable-panels",
+      "@/lib/utils"
+    ],
+    "components/ui/label.tsx": [
+      "react",
+      "@radix-ui/react-label",
+      "@/lib/utils"
+    ],
+    "components/ui/sonner.tsx": [
+      "next-themes",
+      "sonner"
+    ],
+    "components/ui/navigation-menu.tsx": [
+      "react",
+      "@radix-ui/react-navigation-menu",
+      "class-variance-authority",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/accordion.tsx": [
+      "react",
+      "@radix-ui/react-accordion",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/drawer.tsx": [
+      "react",
+      "vaul",
+      "@/lib/utils"
+    ],
+    "components/ui/tooltip.tsx": [
+      "react",
+      "@radix-ui/react-tooltip",
+      "@/lib/utils"
+    ],
+    "components/ui/alert.tsx": [
+      "react",
+      "class-variance-authority",
+      "@/lib/utils"
+    ],
+    "components/ui/switch.tsx": [
+      "react",
+      "@radix-ui/react-switch",
+      "@/lib/utils"
+    ],
+    "components/ui/calendar.tsx": [
+      "react",
+      "lucide-react",
+      "react-day-picker",
+      "@/lib/utils",
+      "@/components/ui/button"
+    ],
+    "components/ui/breadcrumb.tsx": [
+      "react",
+      "@radix-ui/react-slot",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/radio-group.tsx": [
+      "react",
+      "@radix-ui/react-radio-group",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/command.tsx": [
+      "react",
+      "cmdk",
+      "lucide-react",
+      "@/lib/utils",
+      "@/components/ui/dialog"
+    ],
+    "components/ui/toggle-group.tsx": [
+      "react",
+      "@radix-ui/react-toggle-group",
+      "class-variance-authority",
+      "@/lib/utils",
+      "@/components/ui/toggle"
+    ],
+    "components/ui/avatar.tsx": [
+      "react",
+      "@radix-ui/react-avatar",
+      "@/lib/utils"
+    ],
+    "components/ui/menubar.tsx": [
+      "react",
+      "@radix-ui/react-menubar",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/dialog.tsx": [
+      "react",
+      "@radix-ui/react-dialog",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/badge.tsx": [
+      "react",
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "@/lib/utils"
+    ],
+    "components/ui/sidebar.tsx": [
+      "react",
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react",
+      "@/hooks/use-mobile",
+      "@/lib/utils",
+      "@/components/ui/button",
+      "@/components/ui/input",
+      "@/components/ui/separator",
+      "@/components/ui/sheet",
+      "@/components/ui/skeleton",
+      "@/components/ui/tooltip"
+    ],
+    "components/ui/table.tsx": [
+      "react",
+      "@/lib/utils"
+    ],
+    "components/ui/separator.tsx": [
+      "react",
+      "@radix-ui/react-separator",
+      "@/lib/utils"
+    ],
+    "components/ui/button.tsx": [
+      "react",
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "@/lib/utils"
+    ],
+    "components/ui/toggle.tsx": [
+      "react",
+      "@radix-ui/react-toggle",
+      "class-variance-authority",
+      "@/lib/utils"
+    ],
+    "components/ui/checkbox.tsx": [
+      "react",
+      "@radix-ui/react-checkbox",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/collapsible.tsx": [
+      "@radix-ui/react-collapsible"
+    ],
+    "components/ui/dropdown-menu.tsx": [
+      "react",
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/select.tsx": [
+      "react",
+      "@radix-ui/react-select",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/textarea.tsx": [
+      "react",
+      "@/lib/utils"
+    ],
+    "components/ui/input.tsx": [
+      "react",
+      "@/lib/utils"
+    ],
+    "components/ui/skeleton.tsx": [
+      "@/lib/utils"
+    ],
+    "components/ui/context-menu.tsx": [
+      "react",
+      "@radix-ui/react-context-menu",
+      "lucide-react",
+      "@/lib/utils"
+    ],
+    "components/ui/form.tsx": [
+      "react",
+      "@radix-ui/react-label",
+      "@radix-ui/react-slot",
+      "react-hook-form",
+      "@/lib/utils",
+      "@/components/ui/label"
+    ],
+    "components/ui/carousel.tsx": [
+      "react",
+      "lucide-react",
+      "@/lib/utils",
+      "@/components/ui/button"
+    ],
+    "components/views/patient-goals.tsx": [
+      "react",
+      "@/components/ui/button",
+      "@/components/ui/card",
+      "@/components/ui/badge",
+      "@/components/ui/progress",
+      "lucide-react",
+      "@/components/responsive-patterns",
+      "@/utils/goal-helpers"
+    ],
+    "components/views/login-view.tsx": [
+      "react",
+      "next/navigation",
+      "@/components/ui/button",
+      "@/components/ui/card",
+      "@/components/ui/input",
+      "@/components/ui/label",
+      "@/components/ui/tabs",
+      "lucide-react",
+      "framer-motion"
+    ],
+    "components/views/create-goal.tsx": [
+      "react",
+      "next/navigation",
+      "next/link",
+      "@/components/ui/button",
+      "@/components/ui/card",
+      "@/components/ui/input",
+      "@/components/ui/label",
+      "@/components/responsive-patterns",
+      "lucide-react"
+    ],
+    "components/views/patient-detail.tsx": [
+      "next/navigation",
+      "next/link",
+      "@/components/ui/button",
+      "@/components/ui/card",
+      "@/components/ui/badge",
+      "@/components/ui/progress",
+      "lucide-react",
+      "@/components/responsive-patterns",
+      "@/utils/goal-helpers",
+      "react"
+    ],
+    "components/views/therapist-dashboard.tsx": [
+      "react",
+      "next/navigation",
+      "next/link",
+      "@/components/ui/button",
+      "@/components/ui/card",
+      "@/components/ui/input",
+      "@/components/ui/badge",
+      "@/components/ui/progress",
+      "lucide-react",
+      "framer-motion",
+      "@/components/responsive-patterns"
+    ],
+    "components/client/search-input.tsx": [
+      "@/components/ui/input"
+    ],
+    "components/client/patient-card-actions.tsx": [
+      "next/link",
+      "@/components/ui/button"
+    ],
+    "hooks/use-mobile.ts": [
+      "react"
+    ],
+    "hooks/use-toast.ts": [
+      "react"
+    ],
+    "lib/utils.ts": [
+      "clsx",
+      "tailwind-merge"
+    ]
+  },
+  "staleness_check": 1755625710.542956
+}
