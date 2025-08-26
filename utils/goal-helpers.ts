@@ -225,3 +225,13 @@ export function getCompletionEmoji(rate: number): string {
   if (rate > 0) return '🔻'
   return '❌'
 }
+
+// Interface simple pour les commentaires
+export interface Comment {
+  id: string
+  patientId: string
+  text: string
+  type: 'absence' | 'note' | 'progress'
+  createdAt: string
+  weekDate?: string  // pour lier à une semaine spécifique
+}
