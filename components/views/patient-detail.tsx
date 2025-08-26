@@ -16,8 +16,9 @@ import {
   getCompletionEmoji,
   type DayProgress
 } from '@/utils/goal-helpers'
-import type { Goal } from '@/utils/goal-helpers'
+import type { Goal, Comment } from '@/utils/goal-helpers'
 import { useState } from 'react'
+import { CommentSection } from '@/components/comment-section'
 
 interface Patient {
   id: string
@@ -33,9 +34,10 @@ interface Patient {
 interface PatientDetailProps {
   patient: Patient
   goals: Goal[]
+  comments?: Comment[]
 }
 
-export function PatientDetail({ patient, goals }: PatientDetailProps) {
+export function PatientDetail({ patient, goals, comments = [] }: PatientDetailProps) {
   const router = useRouter()
   const [expandedGoals, setExpandedGoals] = useState<Set<string>>(new Set())
   const [selectedWeek, setSelectedWeek] = useState(new Date())
@@ -222,8 +224,11 @@ export function PatientDetail({ patient, goals }: PatientDetailProps) {
           </CardContent>
         </Card>
 
+        {/* Comments Section */}
+        <CommentSection patientId={patient.id} comments={comments} />
+
         {/* Weekly Progress Heatmap */}
-        <Card>
+        <Card className="mt-8">
           <CardHeader>
             <CardTitle>
               <div className="flex items-center mb-3">

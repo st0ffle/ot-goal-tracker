@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { PatientDetail } from '@/components/views/patient-detail'
-import { mockPatients, mockGoals } from '@/lib/mock-data'
+import { mockPatients, mockGoals, mockComments } from '@/lib/mock-data'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
@@ -48,6 +48,7 @@ export default async function PatientDetailPage({
     <PatientDetail 
       patient={patient}
       goals={patientGoals}
+      comments={mockComments}
     />
   )
 }
