@@ -15,8 +15,8 @@ export const mockPatients = [
   { id: "13", name: "Hugo Moreau", age: 20, totalGoals: 0, completedToday: 0, points: 720, status: 'archived' as const, archivedAt: '2022-12-10T09:15:00Z' }
 ]
 
-// Import du type Goal
-import type { Goal } from '../utils/goal-helpers'
+// Import des types
+import type { Goal, Comment } from '../utils/goal-helpers'
 
 export const mockGoals: Goal[] = [
   // Objectifs principaux pour patient 1 (Emma Johnson)
@@ -152,4 +152,44 @@ export const mockGoals: Goal[] = [
 
 export const mockTherapists = [
   { id: "1", name: "Dr. Sarah Martinez", specialty: "Ergothérapie Pédiatrique" }
+]
+
+// Mock comments simples - contexte exercices à domicile
+export const mockComments: Comment[] = [
+  {
+    id: "comm1",
+    patientId: "1",
+    text: "Emma a eu 40° de fièvre cette semaine, elle n'a pas pu faire ses exercices",
+    type: "absence",
+    createdAt: "2024-01-22T14:00:00Z",
+    weekDate: "2024-01-22"
+  },
+  {
+    id: "comm2",
+    patientId: "1",
+    text: "Parents rapportent qu'elle s'entraîne seule à boutonner sa chemise chaque matin",
+    type: "progress",
+    createdAt: "2024-01-20T10:30:00Z"
+  },
+  {
+    id: "comm3",
+    patientId: "1",
+    text: "Famille en vacances cette semaine, exercices mis en pause",
+    type: "absence",
+    createdAt: "2024-01-19T15:45:00Z"
+  },
+  {
+    id: "comm4",
+    patientId: "2",
+    text: "Difficultés à maintenir la routine à cause du planning scolaire chargé",
+    type: "note",
+    createdAt: "2024-01-23T09:00:00Z"
+  },
+  {
+    id: "comm5",
+    patientId: "3",
+    text: "Sarah fait ses exercices d'organisation tous les matins avant l'école!",
+    type: "progress",
+    createdAt: "2024-01-21T16:00:00Z"
+  }
 ]
