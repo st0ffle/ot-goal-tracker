@@ -1,5 +1,5 @@
 {
-  "indexed_at": "2025-08-26T19:48:30.092529",
+  "indexed_at": "2025-08-26T19:58:58.484791",
   "root": ".",
   "project_structure": {
     "type": "tree",
@@ -16,7 +16,7 @@
       "\u2502   \u2502   \u2514\u2500\u2500 therapist/ (1 files)",
       "\u2502   \u2514\u2500\u2500 (shared)/",
       "\u2502       \u2514\u2500\u2500 components/",
-      "\u251c\u2500\u2500 components/ (63 files)",
+      "\u251c\u2500\u2500 components/ (64 files)",
       "\u2502   \u251c\u2500\u2500 client/ (2 files)",
       "\u2502   \u251c\u2500\u2500 ui/ (48 files)",
       "\u2502   \u2514\u2500\u2500 views/ (6 files)",
@@ -163,10 +163,10 @@
     "components/views": "UI views and templates"
   },
   "stats": {
-    "total_files": 84,
+    "total_files": 85,
     "total_directories": 22,
     "fully_parsed": {
-      "typescript": 78
+      "typescript": 79
     },
     "listed_only": {
       "json": 5,
@@ -342,12 +342,16 @@
     "utils/goal-helpers.ts": {
       "language": "typescript",
       "parsed": true,
+      "purpose": "Utility functions",
       "functions": {
         "groupGoalsByPrimary": {
           "calls": [
             "map"
           ],
-          "signature": "(goals: Goal[]): PrimaryGoalWithSecondaries[]"
+          "signature": "(goals: Goal[]): PrimaryGoalWithSecondaries[]",
+          "called_by": [
+            "calculatePatientGoalStats"
+          ]
         },
         "getStandalonePrimaryGoals": "(goals: Goal[]): Goal[]",
         "getOrphanSecondaryGoals": "(goals: Goal[]): Goal[]",
@@ -368,9 +372,40 @@
         "getCompletionEmoji": "(rate: number): string"
       },
       "classes": {},
-      "updated_by_hook": true,
-      "updated_at": "2025-08-26T19:50:48.121970",
-      "purpose": "Utility functions"
+      "variables": [
+        "primaries",
+        "secondaries",
+        "completedCount",
+        "totalPoints",
+        "updatedGoals",
+        "allCompleted",
+        "patientGoals",
+        "grouped",
+        "totalPrimaryGoals",
+        "completedPrimaryGoals",
+        "totalSecondaryGoals",
+        "completedSecondaryGoals",
+        "earnedPoints",
+        "dayNames",
+        "monday",
+        "day",
+        "diff",
+        "i",
+        "date",
+        "scenarios",
+        "scenario",
+        "points",
+        "averageCompletion",
+        "bestDay"
+      ],
+      "interfaces": {
+        "Goal": {},
+        "PrimaryGoalWithSecondaries": {},
+        "DayProgress": {},
+        "WeekProgress": {},
+        "Comment": {}
+      },
+      "call_graph": {}
     },
     "components/patient-card.tsx": {
       "language": "typescript",
@@ -427,6 +462,37 @@
       ],
       "interfaces": {
         "PatientBottomNavigationProps": {}
+      },
+      "call_graph": {}
+    },
+    "components/comment-section.tsx": {
+      "language": "typescript",
+      "parsed": true,
+      "imports": [
+        "react",
+        "@/components/ui/card",
+        "@/components/ui/button",
+        "@/components/ui/textarea",
+        "@/components/ui/badge",
+        "lucide-react"
+      ],
+      "functions": {
+        "CommentSection": "({ patientId, comments }: CommentSectionProps)",
+        "getCommentIcon": "(type: Comment['type'])",
+        "getCommentBadgeVariant": "(type: Comment['type'])",
+        "default": "(type: Comment['type'])",
+        "handleAddComment": "()"
+      },
+      "classes": {},
+      "variables": [
+        "patientComments",
+        "getCommentIcon",
+        "getCommentBadgeVariant",
+        "getCommentTypeLabel",
+        "handleAddComment"
+      ],
+      "interfaces": {
+        "CommentSectionProps": {}
       },
       "call_graph": {}
     },
@@ -1673,10 +1739,11 @@
         "lucide-react",
         "@/components/responsive-patterns",
         "@/utils/goal-helpers",
-        "react"
+        "react",
+        "@/components/comment-section"
       ],
       "functions": {
-        "PatientDetail": "({ patient, goals }: PatientDetailProps)",
+        "PatientDetail": "({ patient, goals, comments = [] }: PatientDetailProps)",
         "toggleExpanded": "(goalId: string)",
         "changeWeek": "(direction: 'prev' | 'next')"
       },
@@ -1896,11 +1963,7 @@
     },
     "lib/mock-data.ts": {
       "language": "typescript",
-      "parsed": false,
-      "functions": {},
-      "classes": {},
-      "updated_by_hook": true,
-      "updated_at": "2025-08-26T19:52:52.778913"
+      "parsed": false
     }
   },
   "dependency_graph": {
@@ -1944,6 +2007,14 @@
     "components/patient-bottom-navigation.tsx": [
       "lucide-react",
       "@/lib/utils"
+    ],
+    "components/comment-section.tsx": [
+      "react",
+      "@/components/ui/card",
+      "@/components/ui/button",
+      "@/components/ui/textarea",
+      "@/components/ui/badge",
+      "lucide-react"
     ],
     "components/view-transition.tsx": [
       "framer-motion",
@@ -2263,7 +2334,8 @@
       "lucide-react",
       "@/components/responsive-patterns",
       "@/utils/goal-helpers",
-      "react"
+      "react",
+      "@/components/comment-section"
     ],
     "components/views/therapist-dashboard.tsx": [
       "react",
@@ -2296,5 +2368,5 @@
       "tailwind-merge"
     ]
   },
-  "staleness_check": 1755625710.542956
+  "staleness_check": 1755626338.935555
 }
